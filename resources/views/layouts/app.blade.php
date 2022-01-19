@@ -49,6 +49,7 @@
     <script src="{{ asset('admin/plugins/summernote/summernote-bs4.min.js')}}"></script>
     <script src="{{ asset('admin/dist/js/adminlte.js')}}"></script>
     <script src="{{ asset('admin/dist/js/demo.js')}}"></script>
+    @yield('customjs')
 </body>
 
 </html>

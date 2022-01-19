@@ -43,6 +43,8 @@ Route::get('/administrator/panitia', [AdminController::class, 'panitia'])
     ->name('administrator');
 Route::post('/administrator/panitia', [AdminController::class, 'addpanitia'])
     ->name('addadministrator');    
+Route::post('/administrator/panitia/update', [AdminController::class, 'updatepanitia'])
+    ->name('updateadministrator');    
 Route::get('/administrator/panitia/reset/{id}', [AdminController::class, 'resetpanitia'])
     ->name('resetadministrator');
 Route::get('/administrator/panitia/view/{id}', [AdminController::class, 'viewpanitia'])
@@ -59,6 +61,16 @@ Route::get('/administrator/calon', [AdminController::class, 'calon'])
 // admin pemilih page
 Route::get('/administrator/pemilih', [AdminController::class, 'pemilih'])
     ->name('pemilih');
+Route::get('/administrator/pemilih/view/{id}', [AdminController::class, 'viewpemilih'])
+    ->name('viewpemilih');
+Route::post('/administrator/pemilih/update', [AdminController::class, 'updatepemilih'])
+    ->name('updatepemilih');
+Route::get('/administrator/pemilih/hapus/{id}', [AdminController::class, 'hapuspemilih'])
+    ->name('hapuspemilih');
+Route::post('/administrator/pemilih', [AdminController::class, 'addpemilih'])
+    ->name('addpemilih');
+Route::post('/administrator/pemilih/banyak', [AdminController::class, 'addpemilihbanyak'])
+    ->name('addpemilihbanyak');
 
 // admin pengaturan page
 Route::get('/administrator/pengaturan', [AdminController::class, 'pengaturan'])

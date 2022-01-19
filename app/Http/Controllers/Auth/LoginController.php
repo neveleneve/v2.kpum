@@ -20,7 +20,14 @@ class LoginController extends Controller
     {
         return 'username';
     }
-    
+    protected function credentials(Request $request)
+    {
+        return [
+            'username' => $request->{$this->username()},
+            'password' => $request->password,
+            'status' => 0
+        ];
+    }
     public function validateLogin(Request $request)
     {
         $request->validate([
@@ -54,7 +61,6 @@ class LoginController extends Controller
                 $key['status'],
             ];
         }
-
         View::share([
             'jumlahpemilih' => $jmlpemilih,
             'jumlahcalon' => $jmlcalon,
