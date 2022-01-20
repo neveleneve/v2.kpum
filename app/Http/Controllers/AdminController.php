@@ -238,6 +238,10 @@ class AdminController extends Controller
             'calon' => $data,
         ]);
     }
+    public function addcalon(Request $data)
+    {
+        dd($data->all());
+    }
 
     // pemilih section
     public function pemilih()
@@ -352,6 +356,75 @@ class AdminController extends Controller
     // setting section
     public function pengaturan()
     {
-        return view('administrator.pengaturan');
+        $carousel = File::allFiles(public_path('images/carousel'));
+        $carouselcount = 0;
+        $carouselfilename = [];
+        foreach ($carousel as $path) {
+            $file = pathinfo($path);
+            $carouselfilename[$carouselcount] = $file['basename'];
+            $carouselcount++;
+        }
+
+        $carapilih = File::allFiles(public_path('images/carapilih'));
+        $carapilihcount = 0;
+        $carapilihfilename = [];
+        foreach ($carapilih as $path) {
+            $file = pathinfo($path);
+            $carapilihfilename[$carapilihcount] = $file['basename'];
+            $carapilihcount++;
+        }
+        // dd($carouselfilename);
+        return view('administrator.pengaturan', [
+            'jumlahcarousel' => $carouselcount,
+            'filecarousel' => $carouselfilename,
+            'jumlahcarapilih' => $carapilihcount,
+            'filecarapilih' => $carapilihfilename,
+        ]);
+    }
+    public function updatepengaturan(Request $data)
+    {
+        // ajax function
+        $nama = $data->id;
+        $value = $data->value;
+        if ($value == 'true') {
+            $status = 1;
+            Setting::where('nama', $nama)->update([
+                'status' => $status
+            ]);
+        } else {
+            $status = 0;
+            Setting::where('nama', $nama)->update([
+                'status' => $status
+            ]);
+        }
+
+        return [$status];
+    }
+
+    public function hapuspengaturan(Request $data)
+    {
+        // dd($data->all());
+        $carousel = File::allFiles(public_path('images/' . $data->type));
+        $file = pathinfo($carousel[$data->target]);
+        File::delete(public_path('images/' . $data->type . '/' . $file['basename']));
+        // dd($file['basename']);
+        return redirect(route('pengaturan'))->with([
+            'pemberitahuan' => 'Berhasil menghapus foto pada folder ' . $data->type,
+            'warna' => 'success'
+        ]);
+    }
+
+    public function tambahgambar(Request $data)
+    {
+        // dd($data->all());
+        $file = $data->file('gambar' . $data->type);
+        $namafile = $file->getClientOriginalName();
+        $destination = public_path('images/' . $data->type);
+        $file->move($destination, $namafile);
+
+        return redirect(route('pengaturan'))->with([
+            'pemberitahuan' => 'Berhasil menambah foto pada folder ' . $data->type,
+            'warna' => 'success'
+        ]);
     }
 }

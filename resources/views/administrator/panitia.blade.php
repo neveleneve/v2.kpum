@@ -9,8 +9,8 @@
         {{ session('pemberitahuan') }}
     </div>
     @endif
-    <div class="row my-3">
-        <div class="col-2">
+    <div class="row">
+        <div class="col-lg-3 col-sm-12 my-lg-3 my-sm-3">
             <form action="{{ route('administrator') }}" method="get">
                 <div class="input-group">
                     <input type="search" id="search" name="search" class="form-control form-control-sm"
@@ -24,7 +24,7 @@
                 </div>
             </form>
         </div>
-        <div class="col-10">
+        <div class="col-lg-9 col-md-12 my-lg-3 mb-sm-3">
             <button class="btn btn-sm btn-dark btn-block font-weight-bold" data-toggle="modal"
                 data-target="#modaltambahadmin">
                 Tambah Administrator
@@ -33,67 +33,69 @@
     </div>
     <div class="row mb-3">
         <div class="col-12">
-            <table class="table table-hover table-bordered">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>No</th>
-                        <th>Nama</th>
-                        <th>Username</th>
-                        <th>Level</th>
-                        <th>Status</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($panitia as $item)
-                    <tr>
-                        <td>{{ $loop->index + 1 }}</td>
-                        <td>{{ ucwords($item->name) }}</td>
-                        <td>{{ $item->username }}</td>
-                        <td>{{ $item->level == 0 ? 'Super Administrator' : 'Administrator' }}</td>
-                        <td>{{ $item->status == 0 ? 'Aktif' : 'Tidak Aktif' }}</td>
-                        <td class="text-center">
-                            @if ($item->id != Auth::user()->id)
-                            @if ($item->level != 0)
-                            <a href="{{ route('viewadministrator', ['id'=> $item->id]) }}"
-                                class="btn btn-sm btn-primary">
-                                Lihat Data
-                            </a>
-                            <a href="{{ route('resetadministrator', ['id'=> $item->id]) }}"
-                                class="btn btn-sm btn-warning"
-                                onclick="return confirm('Reset Password Administrator {{ $item->username }}?')">
-                                Reset Password
-                            </a>
-                            @if ($item->status == 1)
-                            <a href="{{ route('activateadministrator', ['id'=> $item->id]) }}"
-                                class="btn btn-sm btn-primary"
-                                onclick="return confirm('Aktifkan Administrator {{ $item->username }}?')">
-                                Aktifkan
-                            </a>
-                            @elseif ($item->status == 0)
-                            <a href="{{ route('deactivateadministrator', ['id'=> $item->id]) }}"
-                                class="btn btn-sm btn-danger"
-                                onclick="return confirm('Non-Aktifkan Administrator {{ $item->username }}?')">
-                                Non-Aktifkan
-                            </a>
-                            @endif
-                            @endif
-                            @else
-                            <a href="{{ route('pengaturan') }}" class="btn btn-sm btn-info">
-                                Pengaturan
-                            </a>
-                            @endif
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="6">
-                            <h2 class="text-center font-weight-bold">Data Kosong</h2>
-                        </td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>No</th>
+                            <th>Nama</th>
+                            <th>Username</th>
+                            <th>Level</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-nowrap">
+                        @forelse ($panitia as $item)
+                        <tr>
+                            <td>{{ $loop->index + 1 }}</td>
+                            <td>{{ ucwords($item->name) }}</td>
+                            <td>{{ $item->username }}</td>
+                            <td>{{ $item->level == 0 ? 'Super Administrator' : 'Administrator' }}</td>
+                            <td>{{ $item->status == 0 ? 'Aktif' : 'Tidak Aktif' }}</td>
+                            <td class="text-center">
+                                @if ($item->id != Auth::user()->id)
+                                @if ($item->level != 0)
+                                <a href="{{ route('viewadministrator', ['id'=> $item->id]) }}"
+                                    class="btn btn-sm btn-primary">
+                                    Lihat Data
+                                </a>
+                                <a href="{{ route('resetadministrator', ['id'=> $item->id]) }}"
+                                    class="btn btn-sm btn-warning"
+                                    onclick="return confirm('Reset Password Administrator {{ $item->username }}?')">
+                                    Reset Password
+                                </a>
+                                @if ($item->status == 1)
+                                <a href="{{ route('activateadministrator', ['id'=> $item->id]) }}"
+                                    class="btn btn-sm btn-primary"
+                                    onclick="return confirm('Aktifkan Administrator {{ $item->username }}?')">
+                                    Aktifkan
+                                </a>
+                                @elseif ($item->status == 0)
+                                <a href="{{ route('deactivateadministrator', ['id'=> $item->id]) }}"
+                                    class="btn btn-sm btn-danger"
+                                    onclick="return confirm('Non-Aktifkan Administrator {{ $item->username }}?')">
+                                    Non-Aktifkan
+                                </a>
+                                @endif
+                                @endif
+                                @else
+                                <a href="{{ route('pengaturan') }}" class="btn btn-sm btn-info">
+                                    Pengaturan
+                                </a>
+                                @endif
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="6">
+                                <h2 class="text-center font-weight-bold">Data Kosong</h2>
+                            </td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

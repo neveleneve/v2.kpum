@@ -38,46 +38,48 @@
     </div>
     <div class="row mb-3">
         <div class="col-12">
-            <table class="table table-hover table-bordered">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>No.</th>
-                        <th>Nama</th>
-                        <th>NIM</th>
-                        <th>Token</th>
-                        <th>Status</th>
-                        <th>Tanggal Memilih</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($pemilih as $item)
-                    <tr>
-                        <td>{{ $loop->index + 1 }}</td>
-                        <td>{{ ucwords($item->name) }}</td>
-                        <td>{{ $item->username }}</td>
-                        <td>{{ $item->token }}</td>
-                        <td>{{ $item->status == 0 ? 'Belum Memilih' : 'Sudah Memilih' }}</td>
-                        <td>{{ $item->tanggal == null ? '-' : date('d/m/Y H:i:s',strtotime($item->tanggal)) }}</td>
-                        <td>
-                            <a class="btn btn-sm btn-primary" href="{{route('viewpemilih', ['id' => $item->id])}}">
-                                Lihat Data Pemilih
-                            </a>
-                            <a class="btn btn-sm btn-danger" href="{{route('hapuspemilih', ['id' => $item->id])}}"
-                                onclick="return confirm('Hapus data pemilih dengan nim {{$item->username}}?')">
-                                Hapus Pemilih
-                            </a>
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="7">
-                            <h2 class="text-center font-weight-bold">Data Kosong</h2>
-                        </td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>No.</th>
+                            <th>Nama</th>
+                            <th>NIM</th>
+                            <th>Token</th>
+                            <th>Status</th>
+                            <th>Tanggal Memilih</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-nowrap">
+                        @forelse ($pemilih as $item)
+                        <tr>
+                            <td>{{ $loop->index + 1 }}</td>
+                            <td>{{ ucwords($item->name) }}</td>
+                            <td>{{ $item->username }}</td>
+                            <td>{{ $item->token }}</td>
+                            <td>{{ $item->status == 0 ? 'Belum Memilih' : 'Sudah Memilih' }}</td>
+                            <td>{{ $item->tanggal == null ? '-' : date('d/m/Y H:i:s',strtotime($item->tanggal)) }}</td>
+                            <td>
+                                <a class="btn btn-sm btn-primary" href="{{route('viewpemilih', ['id' => $item->id])}}">
+                                    Lihat Data Pemilih
+                                </a>
+                                <a class="btn btn-sm btn-danger" href="{{route('hapuspemilih', ['id' => $item->id])}}"
+                                    onclick="return confirm('Hapus data pemilih dengan nim {{$item->username}}?')">
+                                    Hapus Pemilih
+                                </a>
+                            </td>
+                        </tr>
+                        @empty
+                        <tr>
+                            <td colspan="7">
+                                <h2 class="text-center font-weight-bold">Data Kosong</h2>
+                            </td>
+                        </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

@@ -17,19 +17,19 @@ class SettingSeeder extends Seeder
         Setting::insert([
             [
                 'nama' => 'carousel',
-                'status' => 1,
+                'status' => 0,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
-                'nama' => 'cara pilih',
-                'status' => 1,
+                'nama' => 'carapilih',
+                'status' => 0,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
-                'nama' => 'hasil suara',
-                'status' => 1,
+                'nama' => 'hasilsuara',
+                'status' => 0,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ],

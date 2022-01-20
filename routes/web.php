@@ -25,6 +25,8 @@ Route::get('/visi-misi', [GeneralController::class, 'visimisi'])
 
 Route::get('/cek-voter', [GeneralController::class, 'votercheck'])
     ->name('cekvoter');
+Route::post('/cek-voter', [GeneralController::class, 'voterchecking'])
+    ->name('cekingvoter');
 
 Route::get('/hasil-pemilihan', [GeneralController::class, 'hasilpemilihan'])
     ->name('hasil');
@@ -41,40 +43,59 @@ Route::get('/administrator', [AdminController::class, 'index'])
 // admin panitia page
 Route::get('/administrator/panitia', [AdminController::class, 'panitia'])
     ->name('administrator');
+
 Route::post('/administrator/panitia', [AdminController::class, 'addpanitia'])
-    ->name('addadministrator');    
+    ->name('addadministrator');
+
 Route::post('/administrator/panitia/update', [AdminController::class, 'updatepanitia'])
-    ->name('updateadministrator');    
+    ->name('updateadministrator');
+
 Route::get('/administrator/panitia/reset/{id}', [AdminController::class, 'resetpanitia'])
     ->name('resetadministrator');
+
 Route::get('/administrator/panitia/view/{id}', [AdminController::class, 'viewpanitia'])
     ->name('viewadministrator');
+
 Route::get('/administrator/panitia/activate/{id}', [AdminController::class, 'activatepanitia'])
     ->name('activateadministrator');
+
 Route::get('/administrator/panitia/deactive/{id}', [AdminController::class, 'deactivatepanitia'])
     ->name('deactivateadministrator');
 
 // admin calon page
 Route::get('/administrator/calon', [AdminController::class, 'calon'])
     ->name('calon');
+Route::post('/administrator/calon', [AdminController::class, 'addcalon'])
+    ->name('addcalon');
 
 // admin pemilih page
 Route::get('/administrator/pemilih', [AdminController::class, 'pemilih'])
     ->name('pemilih');
+
 Route::get('/administrator/pemilih/view/{id}', [AdminController::class, 'viewpemilih'])
     ->name('viewpemilih');
+
 Route::post('/administrator/pemilih/update', [AdminController::class, 'updatepemilih'])
     ->name('updatepemilih');
+
 Route::get('/administrator/pemilih/hapus/{id}', [AdminController::class, 'hapuspemilih'])
     ->name('hapuspemilih');
+
 Route::post('/administrator/pemilih', [AdminController::class, 'addpemilih'])
     ->name('addpemilih');
+    
 Route::post('/administrator/pemilih/banyak', [AdminController::class, 'addpemilihbanyak'])
     ->name('addpemilihbanyak');
 
 // admin pengaturan page
 Route::get('/administrator/pengaturan', [AdminController::class, 'pengaturan'])
     ->name('pengaturan');
+Route::post('/administrator/pengaturan/update', [AdminController::class, 'updatepengaturan'])
+    ->name('updatepengaturan');
+Route::post('/administrator/pengaturan/hapus', [AdminController::class, 'hapuspengaturan'])
+    ->name('hapuspengaturan');
+Route::post('/administrator/pengaturan/addgambar', [AdminController::class, 'tambahgambar'])
+    ->name('tambahgambar');
 
 // voter page
 Route::get('/vote', [VoterController::class, 'vote'])

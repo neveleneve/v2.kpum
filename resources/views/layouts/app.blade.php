@@ -30,7 +30,7 @@
             @yield('content')
         </main>
         <footer class="main-footer bg-dark fixed-bottom text-center">
-            <strong>Copyright &copy; 2019 - {{ date('Y') }} <a class="text-white" href="{{url('/')}}">KPUM STT Indonesia Tanjungpinang</a>.</strong>
+            <strong class="d-none d-md-inline">Copyright &copy; 2019 - {{ date('Y') }}.</strong><strong><a class="text-white" href="{{url('/')}}"> KPUM STT Indonesia Tanjungpinang.</a></strong>
         </footer>
     </div>
     <!-- Scripts -->
