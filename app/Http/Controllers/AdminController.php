@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UsersExport;
 use App\Models\Setting;
 use App\Models\Suara;
 use App\Models\User;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\View;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminController extends Controller
 {
@@ -256,7 +258,6 @@ class AdminController extends Controller
             'pemilih' => $data,
         ]);
     }
-
     public function updatepemilih(Request $data)
     {
         User::where('id', $data->id)->update([
@@ -267,7 +268,6 @@ class AdminController extends Controller
             'warna' => 'success'
         ]);
     }
-
     public function viewpemilih($id)
     {
         $data = User::where('id', $id)->get();
@@ -354,6 +354,49 @@ class AdminController extends Controller
     }
 
     // setting section
+    public function namabulan($numb)
+    {
+        switch ($numb) {
+            case 1:
+                return 'Januari';
+                break;
+            case 2:
+                return 'Februari';
+                break;
+            case 3:
+                return 'Maret';
+                break;
+            case 4:
+                return 'April';
+                break;
+            case 5:
+                return 'Mei';
+                break;
+            case 6:
+                return 'Juni';
+                break;
+            case 7:
+                return 'Juli';
+                break;
+            case 8:
+                return 'Agustus';
+                break;
+            case 9:
+                return 'September';
+                break;
+            case 10:
+                return 'Oktober';
+                break;
+            case 11:
+                return 'November';
+                break;
+            case 12:
+                return 'Desember';
+                break;
+            default:
+                break;
+        }
+    }
     public function pengaturan()
     {
         $carousel = File::allFiles(public_path('images/carousel'));
@@ -409,37 +452,48 @@ class AdminController extends Controller
         ]);
         if ($data->type == 'Buka') {
             $status = "pembukaan";
-        }else {
+        } else {
             $status = "penutupan";
         }
         return redirect(route('pengaturan'))->with([
-            'pemberitahuan' => 'Berhasil memperbarui waktu ' . $status .' pemilihan',
+            'pemberitahuan' => 'Berhasil memperbarui waktu ' . $status . ' pemilihan',
             'warna' => 'success'
         ]);
     }
-
-    public function hapuspengaturan(Request $data)
+    public function hapusgambar(Request $data)
     {
         $carousel = File::allFiles(public_path('images/' . $data->type));
         $file = pathinfo($carousel[$data->target]);
         File::delete(public_path('images/' . $data->type . '/' . $file['basename']));
-        // dd($file['basename']);
         return redirect(route('pengaturan'))->with([
             'pemberitahuan' => 'Berhasil menghapus foto pada folder ' . $data->type,
             'warna' => 'success'
         ]);
     }
-
     public function tambahgambar(Request $data)
     {
         $file = $data->file('gambar' . $data->type);
         $namafile = $file->getClientOriginalName();
         $destination = public_path('images/' . $data->type);
         $file->move($destination, $namafile);
-
         return redirect(route('pengaturan'))->with([
             'pemberitahuan' => 'Berhasil menambah foto pada folder ' . $data->type,
             'warna' => 'success'
         ]);
+    }
+    public function downloadpemilih()
+    {
+        // echo 'download';
+        // $datapemilih = User::where('level', '2')->get()->toArray();
+        // $user[] = array('Nama', 'NIM', 'Token');
+        // foreach ($datapemilih as $pemilih) {
+        //     $user[] = array(
+        //         'Nama'  => $pemilih['name'],
+        //         'NIM'   => $pemilih['username'],
+        //         'Token'    => $pemilih['token'],
+        //     );
+        // }
+        // dd($user);
+        return Excel::download(new UsersExport, 'pemilih.xlsx');
     }
 }

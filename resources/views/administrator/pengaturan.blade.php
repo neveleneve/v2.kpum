@@ -11,7 +11,7 @@
         <div class="row my-3">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header bg-dark">
                         <h4 class="font-weight-bold text-center">Pengaturan Jadwal Pemilihan</h4>
                     </div>
                     <div class="card-body">
@@ -21,8 +21,7 @@
                                 <form action="{{ route('updatewaktu') }}" method="post">
                                     {{ csrf_field() }}
                                     <div class="input-group mb-3">
-                                        <input type="datetime-local" class="form-control" name="tanggal"
-                                            id="tanggalbuka"
+                                        <input type="datetime-local" class="form-control" name="tanggal" id="tanggalbuka"
                                             value="{{ date('Y-m-d\TH:i', strtotime($waktu['Buka'][0])) }}">
                                         <div class="input-group-append">
                                             <button class="btn btn-outline-secondary" type="submit" name="type"
@@ -36,8 +35,7 @@
                                 <form action="{{ route('updatewaktu') }}" method="post">
                                     {{ csrf_field() }}
                                     <div class="input-group mb-3">
-                                        <input type="datetime-local" class="form-control" name="tanggal"
-                                            id="tanggaltutup"
+                                        <input type="datetime-local" class="form-control" name="tanggal" id="tanggaltutup"
                                             value="{{ date('Y-m-d\TH:i', strtotime($waktu['Tutup'][0])) }}">
                                         <div class="input-group-append">
                                             <button class="btn btn-outline-secondary" type="submit" name="type"
@@ -52,12 +50,63 @@
             </div>
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
+                    <div class="card-header bg-dark">
+                        <h4 class="font-weight-bold text-center">Pengaturan Profil Admin</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">                            
+                            <div class="col-12">
+                                <label for="name">Nama</label>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" name="name" id="name"
+                                        value="{{ Auth::user()->name }}">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label for="username">Username</label>
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" name="username" id="username"
+                                        value="{{ Auth::user()->username }}">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label for="password">Password</label>
+                                <div class="input-group mb-3">
+                                    <input type="password" class="form-control" name="password" id="password">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header bg-dark">
                         <h4 class="font-weight-bold text-center">Pengaturan Halaman Dashboard</h4>
                     </div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
+                                @if (Auth::user()->level == 0)
+                                    <div class="form-group my-3">
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" id="hasilsuara"
+                                                onclick="updatesetting(this.checked, this.id)"
+                                                {{ $setting['hasilsuara'][0] == 1 ? 'checked' : null }}>
+                                            <label class="custom-control-label" for="hasilsuara">Status Hasil
+                                                Pemilihan</label>
+                                        </div>
+                                    </div>
+                                @endif
+                                <div class="form-group my-3">
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="waktupemilihan"
+                                            onclick="updatesetting(this.checked, this.id)"
+                                            {{ $setting['hasilsuara'][0] == 1 ? 'checked' : null }}>
+                                        <label class="custom-control-label" for="waktupemilihan">Status Waktu
+                                            Pemilihan</label>
+                                    </div>
+                                </div>
                                 <div class="form-group my-3">
                                     <div class="custom-control custom-switch">
                                         <input type="checkbox" class="custom-control-input" id="carousel"
@@ -88,7 +137,7 @@
                                                 <div class="col-lg-4 col-md-6 col-sm-12 text-center border p-2 m-2">
                                                     <img class="mb-3 img-thumbnail"
                                                         src="{{ asset('images/carousel/' . $filecarousel[$i]) }}">
-                                                    <form action="{{ route('hapuspengaturan') }}" method="post">
+                                                    <form action="{{ route('hapusgambar') }}" method="post">
                                                         {{ csrf_field() }}
                                                         <input type="hidden" name="target" value="{{ $i }}">
                                                         <button class="btn btn-sm btn-danger ml-2 mb-3" name="type"
@@ -136,7 +185,7 @@
                                                 <div class="col-lg-4 col-md-6 col-sm-12 text-center border p-2 m-2">
                                                     <img class="mb-3 img-thumbnail"
                                                         src="{{ asset('images/carapilih/' . $filecarapilih[$i]) }}">
-                                                    <form action="{{ route('hapuspengaturan') }}" method="post">
+                                                    <form action="{{ route('hapusgambar') }}" method="post">
                                                         {{ csrf_field() }}
                                                         <input type="hidden" name="target" value="{{ $i }}">
                                                         <button class="btn btn-sm btn-danger ml-2 mb-3" name="type"
@@ -156,17 +205,6 @@
                                     </div>
 
                                 </div>
-                                @if (Auth::user()->level == 0)
-                                    <div class="form-group my-3">
-                                        <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input" id="hasilsuara"
-                                                onclick="updatesetting(this.checked, this.id)"
-                                                {{ $setting['hasilsuara'][0] == 1 ? 'checked' : null }}>
-                                            <label class="custom-control-label" for="hasilsuara">Status Hasil
-                                                Pemilihan</label>
-                                        </div>
-                                    </div>
-                                @endif
                             </div>
                         </div>
                     </div>

@@ -87,13 +87,16 @@ Route::post('/administrator/pemilih', [AdminController::class, 'addpemilih'])
 Route::post('/administrator/pemilih/banyak', [AdminController::class, 'addpemilihbanyak'])
     ->name('addpemilihbanyak');
 
+Route::get('/administrator/pemilih/download', [AdminController::class, 'downloadpemilih'])
+    ->name('downloadpemilih');
+
 // admin pengaturan page
 Route::get('/administrator/pengaturan', [AdminController::class, 'pengaturan'])
     ->name('pengaturan');
 Route::post('/administrator/pengaturan/update', [AdminController::class, 'updatepengaturan'])
     ->name('updatepengaturan');
-Route::post('/administrator/pengaturan/hapus', [AdminController::class, 'hapuspengaturan'])
-    ->name('hapuspengaturan');
+Route::post('/administrator/pengaturan/hapusgambar', [AdminController::class, 'hapusgambar'])
+    ->name('hapusgambar');
 Route::post('/administrator/pengaturan/addgambar', [AdminController::class, 'tambahgambar'])
     ->name('tambahgambar');
 Route::post('/administrator/pengaturan/waktu', [AdminController::class, 'waktu'])

@@ -10,7 +10,7 @@
         @endif
         @if ($jumlahcarousel > 0)
             @if ($setting['carousel'][0] == 1)
-                <section id="beranda" class="row">
+                <section class="row">
                     <div class="col-12">
                         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner">
@@ -50,7 +50,7 @@
         @if ($jumlahcalon > 0)
             @if ($setting['hasilsuara'][0] == 1)
                 <?php $warnacok = ['', 'dark', 'info', 'warning', 'primary', 'danger']; ?>
-                <section id="hasil" class="row mb-2 justify-content-center">
+                <section class="row mb-2 justify-content-center">
                     @foreach ($datacalon as $item)
                         <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
                             <div class="info-box">
@@ -75,7 +75,7 @@
         @endif
         @if ($jumlahcarapilih > 0)
             @if ($setting['carapilih'][0] == 1)
-                <section id="cara" class="row justify-content-center">
+                <section class="row justify-content-center">
                     <div class="col-6">
                         <h1 class="text-center brand-text font-weight-bold mb-3">Cara Memilih</h1>
                     </div>
@@ -88,6 +88,18 @@
                 <div class="dropdown-divider"></div>
             @endif
         @else
+        @endif
+        @if ($setting['waktupemilihan'][0] == 1)
+            <section class="row justify-content-center">
+                <div class="col-12">
+                    <h3 class="text-center font-weight-bold">
+                        Tanggal Pemilihan :
+                        {{ date('j', strtotime($waktu['Buka'][0])) . ' ' . App\Http\Controllers\AdminController::namabulan(date('n', strtotime($waktu['Buka'][0]))) . ' ' . date('Y H:i', strtotime($waktu['Buka'][0])) }}
+                        -
+                        {{ date('j', strtotime($waktu['Tutup'][0])) . ' ' . App\Http\Controllers\AdminController::namabulan(date('n', strtotime($waktu['Tutup'][0]))) . ' ' . date('Y H:i', strtotime($waktu['Tutup'][0])) }}
+                    </h3>
+                </div>
+            </section>
         @endif
         <section id="tentang" class="row justify-content-center">
             <div class="col-12">
