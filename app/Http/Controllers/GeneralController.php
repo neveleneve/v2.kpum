@@ -6,6 +6,7 @@ use App\Models\Setting;
 use App\Models\Suara;
 use App\Models\User;
 use App\Models\VisiMisi;
+use App\Models\Waktu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -25,14 +26,20 @@ class GeneralController extends Controller
                 $key['status'],
             ];
         }
+        // 
+        $time = Waktu::all();
+        foreach ($time as $key) {
+            $waktu[$key['nama']] = [
+                $key['tanggal'],
+            ];
+        }
         View::share([
             'jumlahpemilih' => $jmlpemilih,
             'jumlahcalon' => $jmlcalon,
             'jumlahsuara' => $jmlsuara,
             'setting' => $settings,
+            'waktu' => $waktu,
         ]);
-        $this->jumlahcalon = $jmlcalon;
-        $this->setting = $settings;
     }
 
     public function index()

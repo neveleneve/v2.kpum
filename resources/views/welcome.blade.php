@@ -73,18 +73,21 @@
                 <div class="dropdown-divider"></div>
             @endif
         @endif
-        @if ($setting['carapilih'][0] == 1)
-            <section id="cara" class="row justify-content-center">
-                <div class="col-6">
-                    <h1 class="text-center brand-text font-weight-bold mb-3">Cara Memilih</h1>
-                </div>
-                <div class="col-12 text-center">
-                    @for ($i = 0; $i < $jumlahcarapilih; $i++)
-                        <img class="img-fluid mb-3" src="{{ asset('/images/carapilih/' . $filecarapilih[$i]) }}">
-                    @endfor
-                </div>
-            </section>
-            <div class="dropdown-divider"></div>
+        @if ($jumlahcarapilih > 0)
+            @if ($setting['carapilih'][0] == 1)
+                <section id="cara" class="row justify-content-center">
+                    <div class="col-6">
+                        <h1 class="text-center brand-text font-weight-bold mb-3">Cara Memilih</h1>
+                    </div>
+                    <div class="col-12 text-center">
+                        @for ($i = 0; $i < $jumlahcarapilih; $i++)
+                            <img class="img-fluid mb-3" src="{{ asset('/images/carapilih/' . $filecarapilih[$i]) }}">
+                        @endfor
+                    </div>
+                </section>
+                <div class="dropdown-divider"></div>
+            @endif
+        @else
         @endif
         <section id="tentang" class="row justify-content-center">
             <div class="col-12">

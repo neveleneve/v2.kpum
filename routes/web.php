@@ -96,6 +96,8 @@ Route::post('/administrator/pengaturan/hapus', [AdminController::class, 'hapuspe
     ->name('hapuspengaturan');
 Route::post('/administrator/pengaturan/addgambar', [AdminController::class, 'tambahgambar'])
     ->name('tambahgambar');
+Route::post('/administrator/pengaturan/waktu', [AdminController::class, 'waktu'])
+    ->name('updatewaktu');
 
 // voter page
 Route::get('/vote', [VoterController::class, 'vote'])

@@ -67,7 +67,7 @@
                                 </a>
                                 @if ($item->status == 1)
                                 <a href="{{ route('activateadministrator', ['id'=> $item->id]) }}"
-                                    class="btn btn-sm btn-primary"
+                                    class="btn btn-sm btn-success"
                                     onclick="return confirm('Aktifkan Administrator {{ $item->username }}?')">
                                     Aktifkan
                                 </a>

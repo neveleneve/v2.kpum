@@ -16,7 +16,7 @@ class CreateWaktusTable extends Migration
         Schema::create('waktus', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->date('tanggal');
+            $table->dateTime('tanggal');
             $table->timestamps();
         });
     }

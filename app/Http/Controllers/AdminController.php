@@ -51,7 +51,7 @@ class AdminController extends Controller
     // usefull function 
     public function randomstringlah()
     {
-        $randomString = substr(str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 10);
+        $randomString = substr(str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 6);
         return $randomString;
     }
     public function hitungfile($publicpath)
@@ -400,10 +400,26 @@ class AdminController extends Controller
 
         return [$status];
     }
+    public function waktu(Request $data)
+    {
+        // dd($data->all());
+        echo $tanggal = str_replace('T', ' ', $data->tanggal);
+        Waktu::where('nama', $data->type)->update([
+            'tanggal' => date('Y-m-d H:i:s', strtotime($tanggal))
+        ]);
+        if ($data->type == 'Buka') {
+            $status = "pembukaan";
+        }else {
+            $status = "penutupan";
+        }
+        return redirect(route('pengaturan'))->with([
+            'pemberitahuan' => 'Berhasil memperbarui waktu ' . $status .' pemilihan',
+            'warna' => 'success'
+        ]);
+    }
 
     public function hapuspengaturan(Request $data)
     {
-        // dd($data->all());
         $carousel = File::allFiles(public_path('images/' . $data->type));
         $file = pathinfo($carousel[$data->target]);
         File::delete(public_path('images/' . $data->type . '/' . $file['basename']));
@@ -416,7 +432,6 @@ class AdminController extends Controller
 
     public function tambahgambar(Request $data)
     {
-        // dd($data->all());
         $file = $data->file('gambar' . $data->type);
         $namafile = $file->getClientOriginalName();
         $destination = public_path('images/' . $data->type);

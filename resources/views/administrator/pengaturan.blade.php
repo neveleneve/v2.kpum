@@ -12,7 +12,48 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="font-weight-bold text-center">Pengaturan</h4>
+                        <h4 class="font-weight-bold text-center">Pengaturan Jadwal Pemilihan</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <label for="tanggalbuka">Tanggal Mulai Pemilihan</label>
+                                <form action="{{ route('updatewaktu') }}" method="post">
+                                    {{ csrf_field() }}
+                                    <div class="input-group mb-3">
+                                        <input type="datetime-local" class="form-control" name="tanggal"
+                                            id="tanggalbuka"
+                                            value="{{ date('Y-m-d\TH:i', strtotime($waktu['Buka'][0])) }}">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" type="submit" name="type"
+                                                value="Buka">Update Tanggal</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-12">
+                                <label for="tanggaltutup">Tanggal Selesai Pemilihan</label>
+                                <form action="{{ route('updatewaktu') }}" method="post">
+                                    {{ csrf_field() }}
+                                    <div class="input-group mb-3">
+                                        <input type="datetime-local" class="form-control" name="tanggal"
+                                            id="tanggaltutup"
+                                            value="{{ date('Y-m-d\TH:i', strtotime($waktu['Tutup'][0])) }}">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-outline-secondary" type="submit" name="type"
+                                                value="Tutup">Update Tanggal</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="font-weight-bold text-center">Pengaturan Halaman Dashboard</h4>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -44,7 +85,7 @@
                                     <div class="row my-3 justify-content-center">
                                         @if ($jumlahcarousel > 0)
                                             @for ($i = 0; $i < $jumlahcarousel; $i++)
-                                                <div class="col-lg-3 col-md-6 col-sm-12 text-center border p-2 m-2">
+                                                <div class="col-lg-4 col-md-6 col-sm-12 text-center border p-2 m-2">
                                                     <img class="mb-3 img-thumbnail"
                                                         src="{{ asset('images/carousel/' . $filecarousel[$i]) }}">
                                                     <form action="{{ route('hapuspengaturan') }}" method="post">
@@ -91,42 +132,41 @@
                                     </div>
                                     <div class="row my-3 justify-content-center">
                                         @if ($jumlahcarapilih > 0)
-                                        @for ($i = 0; $i < $jumlahcarapilih; $i++)
-                                            <div class="col-lg-3 col-md-6 col-sm-12 text-center border p-2 m-2">
-                                                <img class="mb-3 img-thumbnail"
-                                                    src="{{ asset('images/carapilih/' . $filecarapilih[$i]) }}">
-                                                <form action="{{ route('hapuspengaturan') }}" method="post">
-                                                    {{ csrf_field() }}
-                                                    <input type="hidden" name="target" value="{{ $i }}">
-                                                    <button class="btn btn-sm btn-danger ml-2 mb-3" name="type"
-                                                        value="carapilih" type="submit"
-                                                        onclick="return confirm('Hapus gambar ini?')">
-                                                        Hapus Gambar
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        @endfor
-                                            
+                                            @for ($i = 0; $i < $jumlahcarapilih; $i++)
+                                                <div class="col-lg-4 col-md-6 col-sm-12 text-center border p-2 m-2">
+                                                    <img class="mb-3 img-thumbnail"
+                                                        src="{{ asset('images/carapilih/' . $filecarapilih[$i]) }}">
+                                                    <form action="{{ route('hapuspengaturan') }}" method="post">
+                                                        {{ csrf_field() }}
+                                                        <input type="hidden" name="target" value="{{ $i }}">
+                                                        <button class="btn btn-sm btn-danger ml-2 mb-3" name="type"
+                                                            value="carapilih" type="submit"
+                                                            onclick="return confirm('Hapus gambar ini?')">
+                                                            Hapus Gambar
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            @endfor
+
                                         @else
-                                        <div class="col-12 border p-2 m-2">
-                                            <h1 class="text-center">Data gambar cara pemilihan tidak tersedia</h1>
-                                        </div>
+                                            <div class="col-12 border p-2 m-2">
+                                                <h1 class="text-center">Data gambar cara pemilihan tidak tersedia</h1>
+                                            </div>
                                         @endif
                                     </div>
 
                                 </div>
-                                <div class="form-group my-3">
-                                    <div class="custom-control custom-switch">
-                                        <input type="checkbox" class="custom-control-input" id="hasilsuara"
-                                            onclick="updatesetting(this.checked, this.id)"
-                                            {{ $setting['hasilsuara'][0] == 1 ? 'checked' : null }}>
-                                        <label class="custom-control-label" for="hasilsuara">Status Hasil
-                                            Pemilihan</label>
+                                @if (Auth::user()->level == 0)
+                                    <div class="form-group my-3">
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" id="hasilsuara"
+                                                onclick="updatesetting(this.checked, this.id)"
+                                                {{ $setting['hasilsuara'][0] == 1 ? 'checked' : null }}>
+                                            <label class="custom-control-label" for="hasilsuara">Status Hasil
+                                                Pemilihan</label>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-6">
-
+                                @endif
                             </div>
                         </div>
                     </div>
