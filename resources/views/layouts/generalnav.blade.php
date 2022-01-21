@@ -44,10 +44,14 @@
                             </a>
                         </li>
                     @else
-                        <li class="nav-item">
-                            <a href="{{ route('vote') }}"
-                                class="nav-link {{ Request::is('vote') ? 'font-weight-bold' : null }}">Vote Now!</a>
-                        </li>
+                        @if (date('Y-m-d', strtotime($waktu['Buka'][0])) >= date('Y-m-d') && date('Y-m-d', strtotime($waktu['Tutup'][0])) <= date('Y-m-d'))
+                            <li class="nav-item">
+                                <a href="{{ route('vote') }}"
+                                    class="nav-link {{ Request::is('vote') ? 'font-weight-bold' : null }}">
+                                    Vote Now!
+                                </a>
+                            </li>
+                        @endif
                     @endif
                 @endauth
             </ul>
@@ -55,8 +59,9 @@
         @auth
             <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
                 <li class="nav-item nav-item-right">
-                    <a class="nav-link" href="#" onclick="event.preventDefault();
-                                                         document.getElementById('logout-form').submit();">
+                    <a class="nav-link" href="#"
+                        onclick="event.preventDefault();
+                                                                             document.getElementById('logout-form').submit();">
                         <i class="fa fas fa-sign-out-alt"></i>
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
