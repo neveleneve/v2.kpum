@@ -37,8 +37,19 @@
             </div>
             @if (count($pemilih))
                 <div class="col-12 mb-3">
-                    <a href="{{ route('downloadpemilih') }}" class="btn btn-sm btn-primary btn-block font-weight-bold">Download Data Mahasiswa</a>
+                    <a href="{{ route('downloadpemilih') }}"
+                        class="btn btn-sm btn-primary btn-block font-weight-bold">Download Data Pemilih</a>
                 </div>
+            @endif
+            @if (Auth::user()->level == 0)
+                @if (date('Y-m-d') > date('Y-m-d', strtotime($waktu['Tutup'][0])))
+                    <div class="col-12 mb-3">
+                        <a href="{{ route('hapuspemilihall') }}" class="btn btn-sm btn-danger btn-block font-weight-bold"
+                            onclick="return confirm('Yakin ingin menghapus semua data pemilih?')">
+                            Hapus Semua Data Pemilih
+                        </a>
+                    </div>
+                @endif
             @endif
         </div>
         <div class="row mb-3">
@@ -89,6 +100,9 @@
                     </table>
                 </div>
             </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            {!! $pemilih->links() !!}
         </div>
     </div>
     <div class="modal fade" id="modalpemilih">

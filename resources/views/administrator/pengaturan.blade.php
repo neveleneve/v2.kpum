@@ -54,28 +54,35 @@
                         <h4 class="font-weight-bold text-center">Pengaturan Profil Admin</h4>
                     </div>
                     <div class="card-body">
-                        <div class="row">                            
-                            <div class="col-12">
-                                <label for="name">Nama</label>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" name="name" id="name"
-                                        value="{{ Auth::user()->name }}">
+                        <form action="{{ route('updatedata') }}" method="post">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="id" value="{{ Auth::user()->id }}">
+                            <div class="row">
+                                <div class="col-12">
+                                    <label for="name">Nama</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" name="name" id="name"
+                                            value="{{ Auth::user()->name }}" required>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <label for="username">Username</label>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" name="username" id="username"
+                                            value="{{ Auth::user()->username }}" required>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <label for="password">Ubah Password</label>
+                                    <div class="input-group mb-3">
+                                        <input type="password" class="form-control" name="password" id="password">
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <input type="submit" value="Simpan" class="btn btn-dark btn-block">
                                 </div>
                             </div>
-                            <div class="col-12">
-                                <label for="username">Username</label>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" name="username" id="username"
-                                        value="{{ Auth::user()->username }}">
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <label for="password">Password</label>
-                                <div class="input-group mb-3">
-                                    <input type="password" class="form-control" name="password" id="password">
-                                </div>
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -242,17 +242,20 @@ class AdminController extends Controller
     }
     public function addcalon(Request $data)
     {
-        dd($data->all());
+        // dd($data->all());
+        $data->validate([
+            'gambar' => 'mimes:jpg'
+        ]);
+        return redirect(route('calon'));
     }
 
     // pemilih section
     public function pemilih()
     {
-        $data = User::where('level', 2)->get();
         if (isset($_GET['search'])) {
-            $data = User::where('level', 2)->where('username', 'LIKE', '%' . $_GET['search'] . '%')->get();
+            $data = User::where('level', 2)->where('username', 'LIKE', '%' . $_GET['search'] . '%')->paginate(10);
         } else {
-            $data = User::where('level', 2)->get();
+            $data = User::where('level', 2)->paginate(10);
         }
         return view('administrator.pemilih', [
             'pemilih' => $data,
@@ -280,6 +283,14 @@ class AdminController extends Controller
         User::where('id', $id)->delete();
         return redirect(route('pemilih'))->with([
             'pemberitahuan' => 'Berhasil menghapus data pemilih!',
+            'warna' => 'success'
+        ]);
+    }
+    public function hapuspemilihall()
+    {
+        User::truncate();
+        return redirect(route('pemilih'))->with([
+            'pemberitahuan' => 'Berhasil menghapus semua data pemilih!',
             'warna' => 'success'
         ]);
     }
@@ -483,17 +494,25 @@ class AdminController extends Controller
     }
     public function downloadpemilih()
     {
-        // echo 'download';
-        // $datapemilih = User::where('level', '2')->get()->toArray();
-        // $user[] = array('Nama', 'NIM', 'Token');
-        // foreach ($datapemilih as $pemilih) {
-        //     $user[] = array(
-        //         'Nama'  => $pemilih['name'],
-        //         'NIM'   => $pemilih['username'],
-        //         'Token'    => $pemilih['token'],
-        //     );
-        // }
-        // dd($user);
         return Excel::download(new UsersExport, 'pemilih.xlsx');
+    }
+    public function updatedata(Request $data)
+    {
+        if ($data->password == null) {
+            User::where('id', $data->id)->update([
+                'name' => $data->name,
+                'username' => $data->username,
+            ]);
+        } else {
+            User::where('id', $data->id)->update([
+                'name' => $data->name,
+                'username' => $data->username,
+                'password' => Hash::make($data->username),
+            ]);
+        }
+        return redirect(route('pengaturan'))->with([
+            'pemberitahuan' => 'Data profil admin berhasil diperbarui!',
+            'warna' => 'success',
+        ]);
     }
 }

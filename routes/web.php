@@ -81,6 +81,9 @@ Route::post('/administrator/pemilih/update', [AdminController::class, 'updatepem
 Route::get('/administrator/pemilih/hapus/{id}', [AdminController::class, 'hapuspemilih'])
     ->name('hapuspemilih');
 
+Route::get('/administrator/pemilih/hapus', [AdminController::class, 'hapuspemilihall'])
+    ->name('hapuspemilihall');
+
 Route::post('/administrator/pemilih', [AdminController::class, 'addpemilih'])
     ->name('addpemilih');
     
@@ -101,6 +104,8 @@ Route::post('/administrator/pengaturan/addgambar', [AdminController::class, 'tam
     ->name('tambahgambar');
 Route::post('/administrator/pengaturan/waktu', [AdminController::class, 'waktu'])
     ->name('updatewaktu');
+Route::post('/administrator/pengaturan/updatedata', [AdminController::class, 'updatedata'])
+    ->name('updatedata');
 
 // voter page
 Route::get('/vote', [VoterController::class, 'vote'])
