@@ -19,7 +19,7 @@
                 <form action="{{ route('pemilih') }}" method="get">
                     <div class="input-group">
                         <input type="search" id="search" name="search" class="form-control form-control-sm"
-                            placeholder="Type your keywords here"
+                            placeholder="Pencarian NIM..."
                             value="{{ isset($_GET['search']) ? $_GET['search'] : null }}">
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-sm btn-dark">
@@ -41,16 +41,7 @@
                         class="btn btn-sm btn-primary btn-block font-weight-bold">Download Data Pemilih</a>
                 </div>
             @endif
-            @if (Auth::user()->level == 0)
-                @if (date('Y-m-d') > date('Y-m-d', strtotime($waktu['Tutup'][0])))
-                    <div class="col-12 mb-3">
-                        <a href="{{ route('hapuspemilihall') }}" class="btn btn-sm btn-danger btn-block font-weight-bold"
-                            onclick="return confirm('Yakin ingin menghapus semua data pemilih?')">
-                            Hapus Semua Data Pemilih
-                        </a>
-                    </div>
-                @endif
-            @endif
+            
         </div>
         <div class="row mb-3">
             <div class="col-12">
@@ -71,18 +62,18 @@
                             @forelse ($pemilih as $item)
                                 <tr>
                                     <td>{{ $loop->index + 1 }}</td>
-                                    <td>{{ ucwords($item->name) }}</td>
+                                    <td>{{ ucwords(strtolower($item->name)) }}</td>
                                     <td>{{ $item->username }}</td>
                                     <td>{{ $item->token }}</td>
                                     <td>{{ $item->status == 0 ? 'Belum Memilih' : 'Sudah Memilih' }}</td>
                                     <td>{{ $item->tanggal == null ? '-' : date('d/m/Y H:i:s', strtotime($item->tanggal)) }}
                                     </td>
-                                    <td>
-                                        <a class="btn btn-sm btn-primary"
+                                    <td class="text-center">
+                                        <a class="btn btn-sm btn-primary font-weight-bold"
                                             href="{{ route('viewpemilih', ['id' => $item->id]) }}">
                                             Lihat Data Pemilih
                                         </a>
-                                        <a class="btn btn-sm btn-danger"
+                                        <a class="btn btn-sm btn-danger font-weight-bold"
                                             href="{{ route('hapuspemilih', ['id' => $item->id]) }}"
                                             onclick="return confirm('Hapus data pemilih dengan nim {{ $item->username }}?')">
                                             Hapus Pemilih

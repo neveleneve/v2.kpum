@@ -12,10 +12,17 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header bg-dark">
-                        <h4 class="font-weight-bold text-center">Pengaturan Jadwal Pemilihan</h4>
+                        <h4 class="font-weight-bold text-center">Pengaturan Pemilihan</h4>
                     </div>
                     <div class="card-body">
                         <div class="row">
+                            <div class="col-12">
+                                <h4 class="font-weight-bold text-center">
+                                    Jadwal Pemilihan
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
                             <div class="col-12">
                                 <label for="tanggalbuka">Tanggal Mulai Pemilihan</label>
                                 <form action="{{ route('updatewaktu') }}" method="post">
@@ -45,6 +52,24 @@
                                 </form>
                             </div>
                         </div>
+                        @if (Auth::user()->level == 0)
+                            @if (date('Y-m-d') > date('Y-m-d', strtotime($waktu['Tutup'][0])))
+                                <div class="row">
+                                    <div class="col-12">
+                                        <h4 class="font-weight-bold text-center">
+                                            Daftar Pemilih
+                                        </h4>
+                                    </div>
+                                    <div class="col-12">
+                                        <a href="{{ route('hapuspemilihall') }}"
+                                            class="btn btn-sm btn-danger btn-block font-weight-bold"
+                                            onclick="return confirm('Yakin ingin menghapus semua data pemilih?')">
+                                            Hapus Semua Data Pemilih
+                                        </a>
+                                    </div>
+                                </div>
+                            @endif
+                        @endif
                     </div>
                 </div>
             </div>
@@ -75,7 +100,7 @@
                                 <div class="col-12">
                                     <label for="password">Ubah Password</label>
                                     <div class="input-group mb-3">
-                                        <input type="password" class="form-control" name="password" id="password">
+                                        <input type="password" class="form-control" name="password" id="password" placeholder="Isi untuk mengubah password">
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -109,7 +134,7 @@
                                     <div class="custom-control custom-switch">
                                         <input type="checkbox" class="custom-control-input" id="waktupemilihan"
                                             onclick="updatesetting(this.checked, this.id)"
-                                            {{ $setting['hasilsuara'][0] == 1 ? 'checked' : null }}>
+                                            {{ $setting['waktupemilihan'][0] == 1 ? 'checked' : null }}>
                                         <label class="custom-control-label" for="waktupemilihan">Status Waktu
                                             Pemilihan</label>
                                     </div>

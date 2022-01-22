@@ -240,22 +240,83 @@ class AdminController extends Controller
             'calon' => $data,
         ]);
     }
-    public function addcalon(Request $data)
+    public function addcalon(Request $request)
     {
-        // dd($data->all());
-        $data->validate([
-            'gambar' => 'mimes:jpg'
+        // dd($request->all());
+        $request->validate([
+            'gambar' => 'mimes:jpeg,jpg,png'
         ]);
-        return redirect(route('calon'));
+        VisiMisi::insert([
+            'no_urut' => $request->no_urut,
+            'ketua' => $request->ketua,
+            'nimketua' => $request->nimketua,
+            'jurusanketua' => $request->jurusanketua,
+            'angkatanketua' => $request->angkatanketua,
+            'wakil' => $request->wakil,
+            'nimwakil' => $request->nimwakil,
+            'jurusanwakil' => $request->jurusanwakil,
+            'angkatanwakil' => $request->angkatanwakil,
+            'visi' => $request->visi,
+            'misi' => $request->misi,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+        Suara::insert([
+            'no_urut' => $request->no_urut,
+            'vote' => 0,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+        $file = $request->file('gambar' . $request->type);
+        $namafile =  $request->no_urut . '.jpg';
+        $destination = public_path('images/paslon');
+        $file->move($destination, $namafile);
+        return redirect(route('calon'))->with([
+            'pemberitahuan' => 'Data calon pemilihan berhasil ditambahkan!',
+            'warna' => 'success',
+        ]);
+    }
+    public function viewcalon($id)
+    {
+        $data = VisiMisi::where('id', $id)->get();
+        return view('administrator.calonview', [
+            'data' => $data,
+        ]);
+    }
+    public function updatecalon(Request $request)
+    {
+        // dd($request->all());
+        VisiMisi::where('id', $request->id)->update([
+            'ketua' => $request->ketua,
+            'nimketua' => $request->nimketua,
+            'jurusanketua' => $request->jurusanketua,
+            'angkatanketua' => $request->angkatanketua,
+            'wakil' => $request->wakil,
+            'nimwakil' => $request->nimwakil,
+            'jurusanwakil' => $request->jurusanwakil,
+            'angkatanwakil' => $request->angkatanwakil,
+            'visi' => $request->visi,
+            'misi' => $request->misi,
+        ]);
+        if ($request->gambar != null) {
+            $file = $request->file('gambar' . $request->type);
+            $namafile =  $request->no_urut . '.jpg';
+            $destination = public_path('images/paslon');
+            $file->move($destination, $namafile);
+        }
+        return redirect(route('viewcalon', ['id'=>$request->id]))->with([
+            'pemberitahuan' => 'Data calon pemilihan berhasil diperbarui!',
+            'warna' => 'success',
+        ]);
     }
 
     // pemilih section
     public function pemilih()
     {
         if (isset($_GET['search'])) {
-            $data = User::where('level', 2)->where('username', 'LIKE', '%' . $_GET['search'] . '%')->paginate(10);
+            $data = User::where('level', 2)->where('username', 'LIKE', '%' . $_GET['search'] . '%')->orderBy('username')->paginate(10);
         } else {
-            $data = User::where('level', 2)->paginate(10);
+            $data = User::where('level', 2)->orderBy('username')->paginate(10);
         }
         return view('administrator.pemilih', [
             'pemilih' => $data,
@@ -288,11 +349,18 @@ class AdminController extends Controller
     }
     public function hapuspemilihall()
     {
-        User::truncate();
-        return redirect(route('pemilih'))->with([
-            'pemberitahuan' => 'Berhasil menghapus semua data pemilih!',
-            'warna' => 'success'
-        ]);
+        if (Auth::user()->level == 0) {
+            User::truncate();
+            return redirect(route('pemilih'))->with([
+                'pemberitahuan' => 'Berhasil menghapus semua data pemilih!',
+                'warna' => 'success'
+            ]);
+        } else {
+            return redirect(route('welcome'))->with([
+                'pemberitahuan' => 'Anda tidak memiliki akses untuk halaman ini!',
+                'warna' => 'danger'
+            ]);
+        }
     }
     public function addpemilih(Request $data)
     {

@@ -16,8 +16,8 @@ class CreateVisiMisisTable extends Migration
         Schema::create('visi_misis', function (Blueprint $table) {
             $table->id();
             $table->string('no_urut');
-            $table->string('visi');
-            $table->string('misi');
+            $table->longText('visi');
+            $table->longText('misi');
             $table->string('ketua');
             $table->string('nimketua');
             $table->string('jurusanketua');

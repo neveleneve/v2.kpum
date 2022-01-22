@@ -12,28 +12,23 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a href="{{ route('welcome') }}"
-                        class="nav-link {{ Request::is('/') ? 'font-weight-bold' : null }}">Beranda</a>
+                        class="nav-link {{ Request::is('/') ? 'font-weight-bold' : null }}">
+                        Beranda
+                    </a>
                 </li>
-                @if ($setting['hasilsuara'][0] == 1)
-                    @if ($jumlahcalon > 0)
-                        <li class="nav-item">
-                            <a href="{{ route('hasil') }}"
-                                class="nav-link {{ Request::is('hasil-pemilihan') ? 'font-weight-bold' : null }}">Hasil
-                                Pemilihan</a>
-                        </li>
-                    @endif
-                @endif
                 @if ($jumlahcalon > 0)
                     <li class="nav-item">
                         <a href="{{ route('visimisi') }}"
-                            class="nav-link {{ Request::is('visi-misi') ? 'font-weight-bold' : null }}">Visi dan
-                            Misi</a>
+                            class="nav-link {{ Request::is('visi-misi') ? 'font-weight-bold' : null }}">
+                            Visi dan Misi
+                        </a>
                     </li>
                 @endif
                 <li class="nav-item">
                     <a href="{{ route('cekvoter') }}"
-                        class="nav-link {{ Request::is('cek-voter') ? 'font-weight-bold' : null }}">Cek Data
-                        Pemilih</a>
+                        class="nav-link {{ Request::is('cek-voter') ? 'font-weight-bold' : null }}">
+                        Cek Data Pemilih
+                    </a>
                 </li>
                 @auth
                     @if (Auth::user()->level == 0 || Auth::user()->level == 1)
@@ -61,7 +56,7 @@
                 <li class="nav-item nav-item-right">
                     <a class="nav-link" href="#"
                         onclick="event.preventDefault();
-                                                                             document.getElementById('logout-form').submit();">
+                                                                                             document.getElementById('logout-form').submit();">
                         <i class="fa fas fa-sign-out-alt"></i>
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

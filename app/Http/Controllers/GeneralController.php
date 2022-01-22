@@ -40,6 +40,7 @@ class GeneralController extends Controller
             'setting' => $settings,
             'waktu' => $waktu,
         ]);
+        $this->jumlahcalon = $jmlcalon;
     }
 
     public function index()
@@ -61,12 +62,25 @@ class GeneralController extends Controller
             $carapilihfilename[$carapilihcount] = $file['basename'];
             $carapilihcount++;
         }
+
+        $datacalon = VisiMisi::orderBy('no_urut')->get();
+
+        $datasuaramasuk = Suara::sum('vote');
+
         return view('welcome', [
             'jumlahcarousel' => $carouselcount,
             'filecarousel' => $carouselfilename,
             'jumlahcarapilih' => $carapilihcount,
             'filecarapilih' => $carapilihfilename,
+            'datacalon' => $datacalon,
+            'datasuaramasuk' => $datasuaramasuk,
         ]);
+    }
+
+    public function suarapersonal($nourut)
+    {
+        $data = Suara::where('no_urut', $nourut)->get();
+        return $data[0]['vote'];
     }
 
     public function votercheck()
@@ -89,7 +103,10 @@ class GeneralController extends Controller
         if ($this->jumlahcalon == 0) {
             return redirect(route('welcome'));
         } else {
-            return view('visimisi');
+            $datavisimisi = VisiMisi::orderBy('no_urut')->get();
+            return view('visimisi', [
+                'datavisimisi' => $datavisimisi
+            ]);
         }
     }
 

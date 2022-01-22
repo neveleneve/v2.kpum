@@ -14,7 +14,7 @@
             <form action="{{ route('administrator') }}" method="get">
                 <div class="input-group">
                     <input type="search" id="search" name="search" class="form-control form-control-sm"
-                        placeholder="Type your keywords here"
+                        placeholder="Pencarian username..."
                         value="{{ isset($_GET['search']) ? $_GET['search'] : null }}">
                     <div class="input-group-append">
                         <button type="submit" class="btn btn-sm btn-dark">

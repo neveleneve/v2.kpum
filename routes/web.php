@@ -25,6 +25,7 @@ Route::get('/visi-misi', [GeneralController::class, 'visimisi'])
 
 Route::get('/cek-voter', [GeneralController::class, 'votercheck'])
     ->name('cekvoter');
+
 Route::post('/cek-voter', [GeneralController::class, 'voterchecking'])
     ->name('cekingvoter');
 
@@ -65,8 +66,15 @@ Route::get('/administrator/panitia/deactive/{id}', [AdminController::class, 'dea
 // admin calon page
 Route::get('/administrator/calon', [AdminController::class, 'calon'])
     ->name('calon');
+
 Route::post('/administrator/calon', [AdminController::class, 'addcalon'])
     ->name('addcalon');
+
+Route::post('/administrator/calon/update', [AdminController::class, 'updatecalon'])
+    ->name('updatecalon');
+
+Route::get('/administrator/calon/view/{id}', [AdminController::class, 'viewcalon'])
+    ->name('viewcalon');
 
 // admin pemilih page
 Route::get('/administrator/pemilih', [AdminController::class, 'pemilih'])

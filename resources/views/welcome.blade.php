@@ -47,31 +47,48 @@
                 <div class="dropdown-divider"></div>
             @endif
         @endif
+        @if ($setting['waktupemilihan'][0] == 1)
+            <section class="row justify-content-center">
+                <div class="col-12">
+                    <h3 class="text-center font-weight-bold">
+                        Tanggal Pemilihan :
+                        {{ date('j', strtotime($waktu['Buka'][0])) . ' ' . App\Http\Controllers\AdminController::namabulan(date('n', strtotime($waktu['Buka'][0]))) . ' ' . date('Y H:i', strtotime($waktu['Buka'][0])) }}
+                        -
+                        {{ date('j', strtotime($waktu['Tutup'][0])) . ' ' . App\Http\Controllers\AdminController::namabulan(date('n', strtotime($waktu['Tutup'][0]))) . ' ' . date('Y H:i', strtotime($waktu['Tutup'][0])) }}
+                    </h3>
+                </div>
+            </section>
+            <div class="dropdown-divider"></div>
+        @endif
         @if ($jumlahcalon > 0)
-            @if ($setting['hasilsuara'][0] == 1)
-                <?php $warnacok = ['', 'dark', 'info', 'warning', 'primary', 'danger']; ?>
-                <section class="row mb-2 justify-content-center">
-                    @foreach ($datacalon as $item)
-                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                            <div class="info-box">
-                                <span class="info-box-icon bg-{{ $warnacok[$item->no_urut] }} elevation-1"><i
-                                        class="fas fa-user-alt"></i></span>
-                                <div class="info-box-content">
-                                    <span class="info-box-text">Pasangan Nomor Urut {{ $item->no_urut }}</span>
-                                    <span class="info-box-number">{{ $item->ketua }}</span>
-                                    <span class="info-box-number">{{ $item->wakil }}</span>
-                                </div>
-                                <div class="info-box-footer">
-                                    Persentase Suara :
-                                    {{ $datasuarapersonal[$item->no_urut] == 0 ? 0 : round($datasuarapersonal[$item->no_urut] / $suaramasuk, 4) * 100 }}
-                                    % ({{ $datasuarapersonal[$item->no_urut] }} Suara)
-                                </div>
+            <section class="row mb-2 justify-content-center">
+                <div class="col-12">
+                    <h1 class="text-center brand-text font-weight-bold mb-3">Pasangan Calon</h1>
+                </div>
+                @foreach ($datacalon as $item)
+                    <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="card">
+                            <img class=" card-img-top" src="{{ asset('images/paslon/' . $item->no_urut . '.jpg') }}"
+                                alt="Card image">
+                            <div class="card-body text-center">
+                                <h3 class="h3 font-weight-bold">
+                                    {{ $item->ketua }} - {{ $item->wakil }}
+                                </h3>
+                                @if ($setting['hasilsuara'][0] == 1)
+                                    <p class="card-text">
+                                        Persentase Suara :
+                                        {{ App\Http\Controllers\GeneralController::suarapersonal($item->no_urut) == 0 ? 0 : round(App\Http\Controllers\GeneralController::suarapersonal($item->no_urut) / $datasuaramasuk, 4) * 100 }}
+                                        % ({{ App\Http\Controllers\GeneralController::suarapersonal($item->no_urut) }}
+                                        Suara)
+                                    </p>
+                                @endif
+                                <a href="{{ route('visimisi') }}" class="btn btn-sm btn-dark">Visi dan Misi</a>
                             </div>
                         </div>
-                    @endforeach
-                </section>
-                <div class="dropdown-divider"></div>
-            @endif
+                    </div>
+                @endforeach
+            </section>
+            <div class="dropdown-divider"></div>
         @endif
         @if ($jumlahcarapilih > 0)
             @if ($setting['carapilih'][0] == 1)
@@ -87,21 +104,9 @@
                 </section>
                 <div class="dropdown-divider"></div>
             @endif
-        @else
         @endif
-        @if ($setting['waktupemilihan'][0] == 1)
-            <section class="row justify-content-center">
-                <div class="col-12">
-                    <h3 class="text-center font-weight-bold">
-                        Tanggal Pemilihan :
-                        {{ date('j', strtotime($waktu['Buka'][0])) . ' ' . App\Http\Controllers\AdminController::namabulan(date('n', strtotime($waktu['Buka'][0]))) . ' ' . date('Y H:i', strtotime($waktu['Buka'][0])) }}
-                        -
-                        {{ date('j', strtotime($waktu['Tutup'][0])) . ' ' . App\Http\Controllers\AdminController::namabulan(date('n', strtotime($waktu['Tutup'][0]))) . ' ' . date('Y H:i', strtotime($waktu['Tutup'][0])) }}
-                    </h3>
-                </div>
-            </section>
-        @endif
-        <section id="tentang" class="row justify-content-center">
+
+        <section class="row justify-content-center">
             <div class="col-12">
                 <h1 class="text-center brand-text font-weight-bold mb-3">Tentang<a class="d-none d-md-inline"> Komisi
                         Pemilihan Umum Mahasiswa STT Indonesia Tanjungpinang</a></h1>
