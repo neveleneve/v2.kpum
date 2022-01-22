@@ -114,7 +114,11 @@ Route::post('/administrator/pengaturan/waktu', [AdminController::class, 'waktu']
     ->name('updatewaktu');
 Route::post('/administrator/pengaturan/updatedata', [AdminController::class, 'updatedata'])
     ->name('updatedata');
+Route::post('/administrator/pengaturan/reset', [AdminController::class, 'resetapp'])
+    ->name('resetapp');
 
 // voter page
 Route::get('/vote', [VoterController::class, 'vote'])
     ->name('vote');
+Route::post('/vote', [VoterController::class, 'voting'])
+    ->name('voting');

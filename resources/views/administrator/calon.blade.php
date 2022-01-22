@@ -76,7 +76,7 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-lg-6 col-md-12 col-sm-12">
                                 <label for="ketua">Nama Calon Ketua</label>
                                 <input class="form-control mb-3" type="text" name="ketua" id="ketua" required
                                     onkeypress="return isCharKey(event)">
@@ -93,7 +93,7 @@
                                 <input class="form-control mb-3" type="text" name="angkatanketua" id="angkatanketua"
                                     required onkeypress="return isNumberKey(event)">
                             </div>
-                            <div class="col-6">
+                            <div class="col-lg-6 col-md-12 col-sm-12">
                                 <label for="wakil">Nama Calon Wakil Ketua</label>
                                 <input class="form-control mb-3" type="text" name="wakil" id="wakil" required
                                     onkeypress="return isCharKey(event)">

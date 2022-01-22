@@ -22,14 +22,32 @@ class LoginController extends Controller
     }
     protected function credentials(Request $request)
     {
-        return [
-            'username' => $request->{$this->username()},
-            'password' => $request->password,
-            'status' => 0
-        ];
+        // dd($request->all());
+        $data = User::where('username', $request->username)->get();
+        if (count($data) > 0) {
+            if ($data[0]['level'] == 1) {
+                return [
+                    'username' => $request->{$this->username()},
+                    'password' => $request->password,
+                    'status' => 0
+                ];
+            } elseif ($data[0]['level'] == 0 || $data[0]['level'] == 2) {
+                return [
+                    'username' => $request->{$this->username()},
+                    'password' => $request->password,
+                ];
+            }
+        } else {
+            return [
+                'username' => $request->{$this->username()},
+                'password' => $request->password,
+                'status' => 0
+            ];
+        }
     }
     public function validateLogin(Request $request)
     {
+
         $request->validate([
             'username' => 'required|string',
             'password' => 'required|string',

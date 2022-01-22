@@ -50,8 +50,10 @@
         @if ($setting['waktupemilihan'][0] == 1)
             <section class="row justify-content-center">
                 <div class="col-12">
-                    <h3 class="text-center font-weight-bold">
-                        Tanggal Pemilihan :
+                    <h1 class="text-center font-weight-bold">
+                        Tanggal Pemilihan
+                    </h1>
+                    <h3 class="text-center">
                         {{ date('j', strtotime($waktu['Buka'][0])) . ' ' . App\Http\Controllers\AdminController::namabulan(date('n', strtotime($waktu['Buka'][0]))) . ' ' . date('Y H:i', strtotime($waktu['Buka'][0])) }}
                         -
                         {{ date('j', strtotime($waktu['Tutup'][0])) . ' ' . App\Http\Controllers\AdminController::namabulan(date('n', strtotime($waktu['Tutup'][0]))) . ' ' . date('Y H:i', strtotime($waktu['Tutup'][0])) }}
@@ -75,7 +77,7 @@
                                     {{ $item->ketua }} - {{ $item->wakil }}
                                 </h3>
                                 @if ($setting['hasilsuara'][0] == 1)
-                                    <p class="card-text">
+                                    <p class="h5 card-text font-weight-bold">
                                         Persentase Suara :
                                         {{ App\Http\Controllers\GeneralController::suarapersonal($item->no_urut) == 0 ? 0 : round(App\Http\Controllers\GeneralController::suarapersonal($item->no_urut) / $datasuaramasuk, 4) * 100 }}
                                         % ({{ App\Http\Controllers\GeneralController::suarapersonal($item->no_urut) }}
@@ -94,11 +96,12 @@
             @if ($setting['carapilih'][0] == 1)
                 <section class="row justify-content-center">
                     <div class="col-6">
-                        <h1 class="text-center brand-text font-weight-bold mb-3">Cara Memilih</h1>
+                        <h1 class="text-center brand-text font-weight-bold mb-3">Informasi</h1>
                     </div>
                     <div class="col-12 text-center">
                         @for ($i = 0; $i < $jumlahcarapilih; $i++)
-                            <img class="img-fluid mb-3" src="{{ asset('/images/carapilih/' . $filecarapilih[$i]) }}">
+                            <img class="img-fluid img-thumbnail mb-3"
+                                src="{{ asset('/images/carapilih/' . $filecarapilih[$i]) }}">
                         @endfor
                     </div>
                 </section>

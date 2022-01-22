@@ -39,7 +39,7 @@
                             </a>
                         </li>
                     @else
-                        @if (date('Y-m-d', strtotime($waktu['Buka'][0])) >= date('Y-m-d') && date('Y-m-d', strtotime($waktu['Tutup'][0])) <= date('Y-m-d'))
+                        @if (date('Y-m-d') >= date('Y-m-d', strtotime($waktu['Buka'][0])) && date('Y-m-d') <= date('Y-m-d', strtotime($waktu['Tutup'][0])))
                             <li class="nav-item">
                                 <a href="{{ route('vote') }}"
                                     class="nav-link {{ Request::is('vote') ? 'font-weight-bold' : null }}">
@@ -56,7 +56,7 @@
                 <li class="nav-item nav-item-right">
                     <a class="nav-link" href="#"
                         onclick="event.preventDefault();
-                                                                                             document.getElementById('logout-form').submit();">
+                                                                                                 document.getElementById('logout-form').submit();">
                         <i class="fa fas fa-sign-out-alt"></i>
                     </a>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

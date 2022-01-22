@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\VisiMisi;
 use App\Models\Waktu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 
 class VoterController extends Controller
@@ -46,9 +47,13 @@ class VoterController extends Controller
 
     public function vote()
     {
-        if (date('Y-m-d', strtotime($this->waktu['Buka'][0])) >= date('Y-m-d') && date('Y-m-d', strtotime($this->waktu['Tutup'][0])) <= date('Y-m-d')) {
-            return view('vote');
+        if (date('Y-m-d') >= date('Y-m-d', strtotime($this->waktu['Buka'][0]))  && date('Y-m-d') <= date('Y-m-d', strtotime($this->waktu['Tutup'][0]))) {
+            $datacalon = VisiMisi::get();
+            return view('vote', [
+                'datacalon' => $datacalon
+            ]);
         }
+
         if (date('Y-m-d') <= date('Y-m-d', strtotime($this->waktu['Buka'][0]))) {
             $notif = [
                 'pemberitahuan' => 'Pemilihan belum dibuka! Harap tunggu hingga pemilihan dibuka.',
@@ -64,8 +69,28 @@ class VoterController extends Controller
                 'pemberitahuan' => 'Pemilihan sudah ditutup!' . $tambahan,
                 'warna' => 'danger',
             ];
+        } else {
+            $notif = null;
         }
-
         return redirect(route('welcome'))->with($notif);
+    }
+    public function voting(Request $data)
+    {
+        // dd($data->all());
+        if (Auth::user()->level == 2) {
+            User::where('id', Auth::user()->id)->update([
+                'status' => 1
+            ]);
+            Suara::where('no_urut', $data->id)->increment('vote');
+            return redirect(route('vote'))->with([
+                'pemberitahuan' => 'Kamu berhasil memilih! Terima kasih sudah berpartisipasi dalam Pemilihan Umum Mahasiswa STT Indonesia',
+                'warna' => 'success',    
+            ]);
+        } else {
+            return redirect(route('welcome'))->with([
+                'pemberitahuan' => 'Kamu tidak memiliki hak akses ke halaman ini!',
+                'warna' => 'danger',
+            ]);
+        }
     }
 }

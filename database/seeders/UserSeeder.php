@@ -41,7 +41,7 @@ class UserSeeder extends Seeder
             [
                 'name' => 'mohammad farid hasymi',
                 'username' => '1216005',
-                'password' => Hash::make('THQ8WUW72O'),
+                'password' => Hash::make('THQ8WU'),
                 'token' => 'THQ8WUW72O',
                 'level' => '2',
                 'status' => '0',

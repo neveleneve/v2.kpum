@@ -304,7 +304,7 @@ class AdminController extends Controller
             $destination = public_path('images/paslon');
             $file->move($destination, $namafile);
         }
-        return redirect(route('viewcalon', ['id'=>$request->id]))->with([
+        return redirect(route('viewcalon', ['id' => $request->id]))->with([
             'pemberitahuan' => 'Data calon pemilihan berhasil diperbarui!',
             'warna' => 'success',
         ]);
@@ -350,8 +350,8 @@ class AdminController extends Controller
     public function hapuspemilihall()
     {
         if (Auth::user()->level == 0) {
-            User::truncate();
-            return redirect(route('pemilih'))->with([
+            User::where('level', 2)->delete();
+            return redirect(route('pengaturan'))->with([
                 'pemberitahuan' => 'Berhasil menghapus semua data pemilih!',
                 'warna' => 'success'
             ]);
@@ -582,5 +582,37 @@ class AdminController extends Controller
             'pemberitahuan' => 'Data profil admin berhasil diperbarui!',
             'warna' => 'success',
         ]);
+    }
+    public function resetapp(Request $data)
+    {
+        $datauser = User::where('id', Auth::user()->id)->get();
+        if (Hash::check($data->password, $datauser[0]['password'])) {
+            User::truncate();
+            VisiMisi::truncate();
+            Suara::truncate();
+            User::insert([
+                [
+                    'name' => 'master administrator',
+                    'username' => 'akimilakuo',
+                    'password' => Hash::make('akimilakuo'),
+                    'token' => null,
+                    'level' => '0',
+                    'status' => '0',
+                    'vote_time' => null,
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s'),
+                ]
+            ]);
+            return redirect(route('pengaturan'))->with([
+                'pemberitahuan',
+                'warna',
+            ]);
+        } else {
+
+            return redirect(route('pengaturan'))->with([
+                'pemberitahuan',
+                'warna',
+            ]);
+        }
     }
 }

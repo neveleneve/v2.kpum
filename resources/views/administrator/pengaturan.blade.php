@@ -54,18 +54,21 @@
                         </div>
                         @if (Auth::user()->level == 0)
                             @if (date('Y-m-d') > date('Y-m-d', strtotime($waktu['Tutup'][0])))
-                                <div class="row">
-                                    <div class="col-12">
-                                        <h4 class="font-weight-bold text-center">
-                                            Daftar Pemilih
-                                        </h4>
-                                    </div>
+                                <div class="row mb-3">
                                     <div class="col-12">
                                         <a href="{{ route('hapuspemilihall') }}"
                                             class="btn btn-sm btn-danger btn-block font-weight-bold"
                                             onclick="return confirm('Yakin ingin menghapus semua data pemilih?')">
                                             Hapus Semua Data Pemilih
                                         </a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <button class="btn btn-sm btn-danger btn-block font-weight-bold" data-toggle="modal"
+                                            data-target="#modalreset">
+                                            Reset Aplikasi
+                                        </button>
                                     </div>
                                 </div>
                             @endif
@@ -100,7 +103,8 @@
                                 <div class="col-12">
                                     <label for="password">Ubah Password</label>
                                     <div class="input-group mb-3">
-                                        <input type="password" class="form-control" name="password" id="password" placeholder="Isi untuk mengubah password">
+                                        <input type="password" class="form-control" name="password" id="password"
+                                            placeholder="Isi untuk mengubah password">
                                     </div>
                                 </div>
                                 <div class="col-12">
@@ -244,6 +248,37 @@
             </div>
         </div>
     </div>
+    @if (Auth::user()->level == 0)
+        @if (date('Y-m-d') > date('Y-m-d', strtotime($waktu['Tutup'][0])))
+            <div class="modal fade" id="modalreset">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-dark">
+                            <h5 class="modal-title" id="exampleModalLabel">Reset Aplikasi?</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span class="text-white" aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form action="{{ route('resetapp') }}" method="POST">
+                            {{ csrf_field() }}
+                            <div class="modal-body">
+                                <p>
+                                    Mereset aplikasi menyebabkan penghapusan data pemilih, data calon, dan data
+                                    administrator dengan menyisakan satu Super Administrator dengan username dan password
+                                    default. Masukkan password anda untuk melanjutkan!
+                                </p>
+                                <input type="password" name="password" class="form-control" placeholder="Input Password">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-dark">Lanjutkan</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @endif
+    @endif
 @endsection
 
 @section('customjs')
