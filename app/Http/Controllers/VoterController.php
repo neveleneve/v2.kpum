@@ -79,7 +79,8 @@ class VoterController extends Controller
         // dd($data->all());
         if (Auth::user()->level == 2) {
             User::where('id', Auth::user()->id)->update([
-                'status' => 1
+                'status' => 1,
+                'vote_time' => date('Y-m-d H:i:s'),
             ]);
             Suara::where('no_urut', $data->id)->increment('vote');
             return redirect(route('vote'))->with([
