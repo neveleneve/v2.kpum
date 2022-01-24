@@ -102,8 +102,19 @@
                     </div>
                     <div class="col-12 text-center">
                         @for ($i = 0; $i < $jumlahcarapilih; $i++)
-                            <img class="img-fluid img-thumbnail mb-3"
-                                src="{{ asset('/images/carapilih/' . $filecarapilih[$i]) }}">
+                            @php
+                                $mime = mime_content_type(public_path('images/carapilih/' . $filecarapilih[$i]['nama']));
+                            @endphp
+                            @if (strstr($mime, 'video/'))
+                                <div class="embed-responsive embed-responsive-16by9 mb-3">
+                                    <video class="embed-responsive-item" controls controlsList="nodownload">
+                                        <source src="{{ asset('/images/carapilih/' . $filecarapilih[$i]['nama']) }}">
+                                    </video>
+                                </div>
+                            @elseif(strstr($mime, 'image/'))
+                                <img class="img-fluid img-thumbnail mb-3"
+                                    src="{{ asset('/images/carapilih/' . $filecarapilih[$i]['nama']) }}">
+                            @endif
                         @endfor
                     </div>
                 </section>

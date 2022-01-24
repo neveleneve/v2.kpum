@@ -26,7 +26,6 @@ class GeneralController extends Controller
                 $key['status'],
             ];
         }
-        // 
         $time = Waktu::all();
         foreach ($time as $key) {
             $waktu[$key['nama']] = [
@@ -53,21 +52,16 @@ class GeneralController extends Controller
             $carouselfilename[$carouselcount] = $file['basename'];
             $carouselcount++;
         }
-
         $carapilih = File::allFiles(public_path('images/carapilih'));
         $carapilihcount = 0;
         $carapilihfilename = [];
         foreach ($carapilih as $path) {
             $file = pathinfo($path);
-            $carapilihfilename[$carapilihcount] = $file['basename'];
+            $carapilihfilename[$carapilihcount]['nama'] = $file['basename'];
             $carapilihcount++;
         }
-
         $datacalon = VisiMisi::orderBy('no_urut')->get();
-
         $datasuaramasuk = Suara::sum('vote');
-
-        dd($carapilih);
         return view('welcome', [
             'jumlahcarousel' => $carouselcount,
             'filecarousel' => $carouselfilename,
@@ -92,7 +86,6 @@ class GeneralController extends Controller
     public function voterchecking(Request $data)
     {
         $userdata = User::where('username', $data->pencarian)->orWhere('name',  $data->pencarian)->get();
-        // dd($data->all());
         return redirect(route('cekvoter'))->with([
             'datamhs' => $userdata,
             'pencarian' => $data->pencarian,

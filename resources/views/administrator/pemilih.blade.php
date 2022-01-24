@@ -19,8 +19,7 @@
                 <form action="{{ route('pemilih') }}" method="get">
                     <div class="input-group">
                         <input type="search" id="search" name="search" class="form-control form-control-sm"
-                            placeholder="Pencarian NIM..."
-                            value="{{ isset($_GET['search']) ? $_GET['search'] : null }}">
+                            placeholder="Pencarian NIM..." value="{{ isset($_GET['search']) ? $_GET['search'] : null }}">
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-sm btn-dark">
                                 <i class="fa fa-search"></i>
@@ -41,7 +40,7 @@
                         class="btn btn-sm btn-primary btn-block font-weight-bold">Download Data Pemilih</a>
                 </div>
             @endif
-            
+
         </div>
         <div class="row mb-3">
             <div class="col-12">
@@ -73,11 +72,13 @@
                                             href="{{ route('viewpemilih', ['id' => $item->id]) }}">
                                             Lihat Data Pemilih
                                         </a>
-                                        <a class="btn btn-sm btn-danger font-weight-bold"
-                                            href="{{ route('hapuspemilih', ['id' => $item->id]) }}"
-                                            onclick="return confirm('Hapus data pemilih dengan nim {{ $item->username }}?')">
-                                            Hapus Pemilih
-                                        </a>
+                                        @if ($item->status == 0)
+                                            <a class="btn btn-sm btn-danger font-weight-bold"
+                                                href="{{ route('hapuspemilih', ['id' => $item->id]) }}"
+                                                onclick="return confirm('Hapus data pemilih dengan nim {{ $item->username }}?')">
+                                                Hapus Pemilih
+                                            </a>
+                                        @endif
                                     </td>
                                 </tr>
                             @empty

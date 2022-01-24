@@ -157,7 +157,7 @@
                                             <form action="{{ route('tambahgambar') }}" method="post"
                                                 enctype="multipart/form-data">
                                                 {{ csrf_field() }}
-                                                <div class="input-group mb-3">
+                                                <div class="input-group">
                                                     <input type="file" class="form-control" name="gambarcarousel"
                                                         id="gambarcarousel">
                                                     <div class="input-group-append">
@@ -166,22 +166,30 @@
                                                     </div>
                                                 </div>
                                             </form>
+                                            <small class="text-danger">
+                                                *Upload gambar untuk carousel pada halaman beranda.
+                                            </small>
                                         </div>
                                     </div>
                                     <div class="row my-3 justify-content-center">
                                         @if ($jumlahcarousel > 0)
                                             @for ($i = 0; $i < $jumlahcarousel; $i++)
-                                                <div class="col-lg-4 col-md-6 col-sm-12 text-center border p-2 m-2">
-                                                    <img class="mb-3 img-thumbnail"
-                                                        src="{{ asset('images/carousel/' . $filecarousel[$i]) }}">
-                                                    <form action="{{ route('hapusgambar') }}" method="post">
-                                                        {{ csrf_field() }}
-                                                        <input type="hidden" name="target" value="{{ $i }}">
-                                                        <button class="btn btn-sm btn-danger ml-2 mb-3" name="type"
-                                                            value="carousel" type="submit"
-                                                            onclick="return confirm('Hapus gambar ini?')">Hapus
-                                                            Gambar</button>
-                                                    </form>
+                                                <div class="col-lg-4 col-md-6 col-sm-12 text-center">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <img class="mb-3 img-thumbnail"
+                                                                src="{{ asset('images/carousel/' . $filecarousel[$i]) }}">
+                                                            <form action="{{ route('hapusgambar') }}" method="post">
+                                                                {{ csrf_field() }}
+                                                                <input type="hidden" name="target"
+                                                                    value="{{ $i }}">
+                                                                <button class="btn btn-sm btn-danger ml-2 mb-3" name="type"
+                                                                    value="carousel" type="submit"
+                                                                    onclick="return confirm('Hapus gambar ini?')">Hapus
+                                                                    Gambar</button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             @endfor
                                         @else
@@ -205,7 +213,7 @@
                                             <form action="{{ route('tambahgambar') }}" method="post"
                                                 enctype="multipart/form-data">
                                                 {{ csrf_field() }}
-                                                <div class="input-group mb-3">
+                                                <div class="input-group">
                                                     <input type="file" class="form-control" name="gambarcarapilih"
                                                         id="gambarcarapilih">
                                                     <div class="input-group-append">
@@ -214,23 +222,46 @@
                                                     </div>
                                                 </div>
                                             </form>
+                                            <small class="text-danger">
+                                                *Upload gambar / video untuk cara pemilihan pada halaman beranda.
+                                            </small>
                                         </div>
                                     </div>
                                     <div class="row my-3 justify-content-center">
                                         @if ($jumlahcarapilih > 0)
                                             @for ($i = 0; $i < $jumlahcarapilih; $i++)
-                                                <div class="col-lg-4 col-md-6 col-sm-12 text-center border p-2 m-2">
-                                                    <img class="mb-3 img-thumbnail"
-                                                        src="{{ asset('images/carapilih/' . $filecarapilih[$i]) }}">
-                                                    <form action="{{ route('hapusgambar') }}" method="post">
-                                                        {{ csrf_field() }}
-                                                        <input type="hidden" name="target" value="{{ $i }}">
-                                                        <button class="btn btn-sm btn-danger ml-2 mb-3" name="type"
-                                                            value="carapilih" type="submit"
-                                                            onclick="return confirm('Hapus gambar ini?')">
-                                                            Hapus Gambar
-                                                        </button>
-                                                    </form>
+                                                <div class="col-lg-4 col-md-6 col-sm-12 text-center">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            @php
+                                                                $mime = mime_content_type(public_path('images/carapilih/' . $filecarapilih[$i]));
+                                                            @endphp
+                                                            @if (strstr($mime, 'video/'))
+                                                                <div class="embed-responsive embed-responsive-16by9 mb-3">
+                                                                    <video class="embed-responsive-item" controls
+                                                                        controlsList="nodownload">
+                                                                        <source
+                                                                            src="{{ asset('/images/carapilih/' . $filecarapilih[$i]) }}">
+                                                                    </video>
+                                                                </div>
+                                                            @elseif(strstr($mime, 'image/'))
+                                                                <img class="img-thumbnail mb-3"
+                                                                    src="{{ asset('/images/carapilih/' . $filecarapilih[$i]) }}">
+                                                            @endif
+                                                            {{-- <img class="mb-3 img-thumbnail"
+                                                                src="{{ asset('images/carapilih/' . $filecarapilih[$i]) }}"> --}}
+                                                            <form action="{{ route('hapusgambar') }}" method="post">
+                                                                {{ csrf_field() }}
+                                                                <input type="hidden" name="target"
+                                                                    value="{{ $i }}">
+                                                                <button class="btn btn-sm btn-danger ml-2 mb-3" name="type"
+                                                                    value="carapilih" type="submit"
+                                                                    onclick="return confirm('Hapus gambar ini?')">
+                                                                    Hapus Gambar
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             @endfor
 
