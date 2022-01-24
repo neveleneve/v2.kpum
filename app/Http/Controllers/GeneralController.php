@@ -19,7 +19,6 @@ class GeneralController extends Controller
         $jmlpemilih = User::where('level', 2)->count();
         $jmlcalon = VisiMisi::count();
         $jmlsuara = Suara::sum('vote');
-        // setting
         $setting = Setting::all();
         foreach ($setting as $key) {
             $settings[$key['nama']] = [
