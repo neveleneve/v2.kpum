@@ -84,11 +84,13 @@
                                         Suara)
                                     </p>
                                 @endif
-                                <a href="{{ route('visimisi') }}" class="btn btn-sm btn-dark">Visi dan Misi</a>
                             </div>
                         </div>
                     </div>
                 @endforeach
+                <div class="col-4 my-3">
+                    <a href="{{ route('visimisi') }}" class="btn btn-dark btn-block font-weight-bold">Visi dan Misi</a>
+                </div>
             </section>
             <div class="dropdown-divider"></div>
         @endif

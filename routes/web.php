@@ -104,16 +104,22 @@ Route::get('/administrator/pemilih/download', [AdminController::class, 'download
 // admin pengaturan page
 Route::get('/administrator/pengaturan', [AdminController::class, 'pengaturan'])
     ->name('pengaturan');
+    
 Route::post('/administrator/pengaturan/update', [AdminController::class, 'updatepengaturan'])
     ->name('updatepengaturan');
+
 Route::post('/administrator/pengaturan/hapusgambar', [AdminController::class, 'hapusgambar'])
     ->name('hapusgambar');
+
 Route::post('/administrator/pengaturan/addgambar', [AdminController::class, 'tambahgambar'])
     ->name('tambahgambar');
+
 Route::post('/administrator/pengaturan/waktu', [AdminController::class, 'waktu'])
     ->name('updatewaktu');
+
 Route::post('/administrator/pengaturan/updatedata', [AdminController::class, 'updatedata'])
     ->name('updatedata');
+
 Route::post('/administrator/pengaturan/reset', [AdminController::class, 'resetapp'])
     ->name('resetapp');
 

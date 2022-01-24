@@ -67,6 +67,7 @@ class GeneralController extends Controller
 
         $datasuaramasuk = Suara::sum('vote');
 
+        dd($carapilih);
         return view('welcome', [
             'jumlahcarousel' => $carouselcount,
             'filecarousel' => $carouselfilename,

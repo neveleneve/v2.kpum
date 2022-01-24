@@ -10,7 +10,7 @@
     </div>
     @endif
     <div class="row">
-        <div class="col-lg-3 col-sm-12 my-lg-3 my-sm-3">
+        <div class="col-lg-3 col-sm-12 my-3">
             <form action="{{ route('administrator') }}" method="get">
                 <div class="input-group">
                     <input type="search" id="search" name="search" class="form-control form-control-sm"
@@ -24,7 +24,7 @@
                 </div>
             </form>
         </div>
-        <div class="col-lg-9 col-md-12 my-lg-3 mb-sm-3">
+        <div class="col-lg-9 col-md-12 my-lg-3 mb-3">
             <button class="btn btn-sm btn-dark btn-block font-weight-bold" data-toggle="modal"
                 data-target="#modaltambahadmin">
                 Tambah Administrator

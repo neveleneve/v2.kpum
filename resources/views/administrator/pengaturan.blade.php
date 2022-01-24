@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('content')
     <div class="container mt-5">
         @include('layouts.adminnav')
@@ -200,7 +201,7 @@
                                     </div>
                                     <div class="row my-3">
                                         <div class="col-12">
-                                            <label for="gambarcarapilih">Tambah Cara Pemilihan</label>
+                                            <label for="gambarcarapilih">Tambah Gambar / Video Cara Pemilihan</label>
                                             <form action="{{ route('tambahgambar') }}" method="post"
                                                 enctype="multipart/form-data">
                                                 {{ csrf_field() }}
