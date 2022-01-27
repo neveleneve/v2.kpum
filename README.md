@@ -65,5 +65,7 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
-## Tentang KPUM
+## Tentang Komisi Pemilihan Umum Mahasiswa STT Indonesia
+
+Komisi Pemilihan Umum Mahasiswa (KPUM) Sekolah Tinggi Teknologi Indonesia Tanjungpinang merupakan badan yang dibentuk oleh Majelis Permusywaratan Mahasiswa Sekolah Tinggi Teknologi Indonesia Tanjungpinang dalam rangka melakukan pemilihan Presiden dan Wakil Presiden Mahasiswa selaku Ketua Badan Eksekutif Mahasiswa Sekolah Tinggi Teknologi Indonesia Tanjungpinang
 
