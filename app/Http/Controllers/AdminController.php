@@ -10,6 +10,7 @@ use App\Models\VisiMisi;
 use App\Models\Waktu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\View;
@@ -235,7 +236,17 @@ class AdminController extends Controller
     // calon section
     public function calon()
     {
-        $data = VisiMisi::get();
+        // $data = VisiMisi::get();
+        $data = DB::table('visi_misis')
+            ->join('suaras', 'suaras.no_urut', '=', 'visi_misis.no_urut')
+            ->select([
+                'suaras.vote',
+                'visi_misis.ketua',
+                'visi_misis.wakil',
+                'visi_misis.id',
+                'visi_misis.no_urut'
+            ])
+            ->get();
         return view('administrator.calon', [
             'calon' => $data,
         ]);

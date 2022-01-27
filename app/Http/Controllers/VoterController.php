@@ -76,16 +76,24 @@ class VoterController extends Controller
     }
     public function voting(Request $data)
     {
-        // dd($data->all());
         if (Auth::user()->level == 2) {
-            User::where('id', Auth::user()->id)->update([
-                'status' => 1,
-                'vote_time' => date('Y-m-d H:i:s'),
-            ]);
-            Suara::where('no_urut', $data->id)->increment('vote');
+            // cek jika user sudah memilih atau belum
+            $cekdata = User::where('id', Auth::user()->id)->get();
+            if ($cekdata[0]['status'] == 1) {
+                $pemberitahuan = 'Kamu tidak dapat memilih 2 kali! Silahkan tunggu info terbaru hasil pemilihan di website ini!';
+                $warna = 'danger';
+            } else {
+                User::where('id', Auth::user()->id)->update([
+                    'status' => 1,
+                    'vote_time' => date('Y-m-d H:i:s'),
+                ]);
+                Suara::where('no_urut', $data->id)->increment('vote');
+                $pemberitahuan = 'Kamu berhasil memilih! Terima kasih sudah berpartisipasi dalam Pemilihan Umum Mahasiswa STT Indonesia';
+                $warna = 'success';
+            }
             return redirect(route('vote'))->with([
-                'pemberitahuan' => 'Kamu berhasil memilih! Terima kasih sudah berpartisipasi dalam Pemilihan Umum Mahasiswa STT Indonesia',
-                'warna' => 'success',    
+                'pemberitahuan' => $pemberitahuan,
+                'warna' => $warna,
             ]);
         } else {
             return redirect(route('welcome'))->with([

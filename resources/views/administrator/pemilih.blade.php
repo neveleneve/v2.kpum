@@ -48,37 +48,35 @@
                     <table class="table table-hover table-bordered">
                         <thead class="thead-dark">
                             <tr>
-                                <th>No.</th>
+                                <th></th>
                                 <th>Nama</th>
                                 <th>NIM</th>
                                 <th>Token</th>
                                 <th>Status</th>
                                 <th>Tanggal Memilih</th>
-                                <th>Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="text-nowrap">
                             @forelse ($pemilih as $item)
                                 <tr>
-                                    <td>{{ $loop->index + 1 }}</td>
-                                    <td>{{ ucwords(strtolower($item->name)) }}</td>
-                                    <td>{{ $item->username }}</td>
-                                    <td>{{ $item->token }}</td>
-                                    <td>{{ $item->status == 0 ? 'Belum Memilih' : 'Sudah Memilih' }}</td>
-                                    <td>{{ $item->tanggal == null ? '-' : date('d/m/Y H:i:s', strtotime($item->tanggal)) }}
-                                    </td>
                                     <td class="text-center">
-                                        <a class="btn btn-sm btn-primary font-weight-bold"
+                                        <a class="btn btn-sm btn-warning font-weight-bold"
                                             href="{{ route('viewpemilih', ['id' => $item->id]) }}">
-                                            Lihat Data Pemilih
+                                            <i class="fas fa-eye"></i>
                                         </a>
                                         @if ($item->status == 0)
                                             <a class="btn btn-sm btn-danger font-weight-bold"
                                                 href="{{ route('hapuspemilih', ['id' => $item->id]) }}"
                                                 onclick="return confirm('Hapus data pemilih dengan nim {{ $item->username }}?')">
-                                                Hapus Pemilih
+                                                <i class="fas fa-trash"></i>
                                             </a>
-                                        @endif
+                                        @endif                                                                                
+                                    </td>
+                                    <td>{{ ucwords(strtolower($item->name)) }}</td>
+                                    <td>{{ $item->username }}</td>
+                                    <td>{{ $item->token }}</td>
+                                    <td>{{ $item->status == 0 ? 'Belum Memilih' : 'Sudah Memilih' }}</td>
+                                    <td>{{ $item->vote_time == null ? '-' : date('d/m/Y H:i:s', strtotime($item->vote_time)) }}
                                     </td>
                                 </tr>
                             @empty

@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('token')->nullable();
             $table->string('level');
             $table->string('status')->nullable();
-            $table->date('vote_time')->nullable();
+            $table->dateTime('vote_time')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
