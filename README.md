@@ -65,10 +65,20 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
+## Pemilik Aplikasi
+
+Aplikasi Pemilihan Umum Mahasiswa STT Indonesia Tanjungpinang ini dimiliki oleh Majelis Permusyawaratan Mahasiswa (MPM) STT Indonesia Tanjungpinang selanjutnya dilimpahkan kepada panitia yang dibentuk oleh MPM STT Indonesia bernama Komisi Pemilihan Umum Mahasiswa STT Indonesia Tanjungpinang. 
+
 ## Tentang Komisi Pemilihan Umum Mahasiswa STT Indonesia
 
-Komisi Pemilihan Umum Mahasiswa (KPUM) Sekolah Tinggi Teknologi Indonesia Tanjungpinang merupakan badan yang dibentuk oleh Majelis Permusywaratan Mahasiswa Sekolah Tinggi Teknologi Indonesia Tanjungpinang dalam rangka melakukan pemilihan Presiden dan Wakil Presiden Mahasiswa selaku Ketua Badan Eksekutif Mahasiswa Sekolah Tinggi Teknologi Indonesia Tanjungpinang
+Komisi Pemilihan Umum Mahasiswa (KPUM) Sekolah Tinggi Teknologi Indonesia Tanjungpinang merupakan badan yang dibentuk oleh Majelis Permusywaratan Mahasiswa Sekolah Tinggi Teknologi Indonesia Tanjungpinang dalam rangka melakukan pemilihan Presiden dan Wakil Presiden Mahasiswa selaku Ketua Badan Eksekutif Mahasiswa Sekolah Tinggi Teknologi Indonesia Tanjungpinang.
 
-### Developed By :
+## Developer
 
 - **[neveleneve](https://github.com/neveleneve)**
+
+## Kebutuhan Sistem dan Aplikasi
+
+- PHP versi minimal 7.3
+- MySQL versi minimal 5.7.24
+- Composer versi minimal 2.0.8
