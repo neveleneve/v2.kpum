@@ -18,8 +18,8 @@ class UserSeeder extends Seeder
         User::insert([
             [
                 'name' => 'master administrator',
-                'username' => 'akimilakuo',
-                'password' => Hash::make('akimilakuo'),
+                'username' => 'master',
+                'password' => Hash::make('master'),
                 'token' => null,
                 'level' => '0',
                 'status' => '0',
@@ -40,7 +40,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'name' => 'mohammad farid hasymi',
-                'username' => '1216005',
+                'username' => '1216005', // nim atau tanda pengenal lain untuk mahasiswa
                 'password' => Hash::make('THQ8WF'),
                 'token' => 'THQ8WF',
                 'level' => '2',
