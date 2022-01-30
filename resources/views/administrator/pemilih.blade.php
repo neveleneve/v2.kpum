@@ -19,7 +19,7 @@
                 <form action="{{ route('pemilih') }}" method="get">
                     <div class="input-group">
                         <input type="search" id="search" name="search" class="form-control form-control-sm"
-                            placeholder="Pencarian NIM..." value="{{ isset($_GET['search']) ? $_GET['search'] : null }}">
+                            placeholder="Pencarian NIM..." value="{{ isset($_GET['search']) ? $_GET['search'] : null }}" required>
                         <div class="input-group-append">
                             <button type="submit" class="btn btn-sm btn-dark">
                                 <i class="fa fa-search"></i>

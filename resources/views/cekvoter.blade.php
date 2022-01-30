@@ -57,6 +57,11 @@
                     @endif
                     @endif
                 </div>
+                <div class="card-footer">
+                    <h6 class="font-weight-bold text-center">
+                        Jumlah pemilih terdaftar : {{ $jumlahpemilih }}
+                    </h6>
+                </div>
             </div>
         </div>
     </div>

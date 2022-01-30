@@ -325,7 +325,12 @@ class AdminController extends Controller
     public function pemilih()
     {
         if (isset($_GET['search'])) {
-            $data = User::where('level', 2)->where('username', 'LIKE', '%' . $_GET['search'] . '%')->orderBy('username')->paginate(10);
+            $data = User::where('level', 2)
+                ->where('username', 'LIKE', '%' . $_GET['search'] . '%')
+                ->orWhere('name', 'LIKE', '%' . $_GET['search'] . '%')
+                ->orderBy('username')
+                ->paginate(10);
+            $data->appends(['search' => $_GET['search']]);
         } else {
             $data = User::where('level', 2)->orderBy('username')->paginate(10);
         }

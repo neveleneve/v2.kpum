@@ -19,7 +19,7 @@
                 <hr>
                 {{-- visi --}}
                 <div class="card-header">
-                    <button class="btn btn-link btn-block text-left text-dark" type="button" data-toggle="collapse" data-target="#visipaslon{{ $item->no_urut }}">
+                    <button class="btn btn-link btn-block text-left text-dark collapsed" type="button" data-toggle="collapse" data-target="#visipaslon{{ $item->no_urut }}">
                         <h3 class="h3 font-weight-bold">
                             Visi
                         </h3>
@@ -32,7 +32,7 @@
                 </div>
                 {{-- misi --}}
                 <div class="card-header">
-                    <button class="btn btn-link btn-block text-left text-dark" type="button" data-toggle="collapse" data-target="#misipaslon{{ $item->no_urut }}">
+                    <button class="btn btn-link btn-block text-left text-dark collapsed" type="button" data-toggle="collapse" data-target="#misipaslon{{ $item->no_urut }}">
                         <h3 class="h3 font-weight-bold">Misi</h3>
                     </button>
                 </div>
@@ -52,31 +52,31 @@
                 </div>
                 {{-- profil --}}
                 <div class="card-header">
-                    <button class="btn btn-link btn-block text-left text-dark" type="button" data-toggle="collapse" data-target="#profilpaslon{{ $item->no_urut }}">
+                    <button class="btn btn-link btn-block text-left text-dark collapsed" type="button" data-toggle="collapse" data-target="#profilpaslon{{ $item->no_urut }}">
                         <h3 class="h3 font-weight-bold">Profil</h3>
                     </button>
                 </div>
                 <div id="profilpaslon{{ $item->no_urut }}" class="collapse">
-                <div class="card-body">
-                    <h4 class="h4 font-weight-bold">Calon Presiden Mahasiswa</h4>
-                    <label>Nama</label>
-                    <p>{{ ucfirst($item->ketua) }}</p>
-                    <label>Nomor Induk Mahasiswa</label>
-                    <p>{{ ucfirst($item->nimketua) }}</p>
-                    <label>Jurusan</label>
-                    <p>{{ ucfirst($item->jurusanketua) }}</p>
-                    <label>Angkatan</label>
-                    <p>{{ ucfirst($item->angkatanketua) }}</p>
-                    <h4 class="h3 font-weight-bold">Calon Wakil Presiden Mahasiswa</h4>
-                    <label>Nama</label>
-                    <p>{{ ucfirst($item->wakil) }}</p>
-                    <label>Nomor Induk Mahasiswa</label>
-                    <p>{{ ucfirst($item->nimwakil) }}</p>
-                    <label>Jurusan</label>
-                    <p>{{ ucfirst($item->jurusanwakil) }}</p>
-                    <label>Angkatan</label>
-                    <p>{{ ucfirst($item->angkatanwakil) }}</p>
-                </div>
+                    <div class="card-body">
+                        <h4 class="h4 font-weight-bold">Calon Presiden Mahasiswa</h4>
+                        <label>Nama</label>
+                        <p>{{ ucfirst($item->ketua) }}</p>
+                        <label>Nomor Induk Mahasiswa</label>
+                        <p>{{ ucfirst($item->nimketua) }}</p>
+                        <label>Jurusan</label>
+                        <p>{{ ucfirst($item->jurusanketua) }}</p>
+                        <label>Angkatan</label>
+                        <p>{{ ucfirst($item->angkatanketua) }}</p>
+                        <h4 class="h3 font-weight-bold">Calon Wakil Presiden Mahasiswa</h4>
+                        <label>Nama</label>
+                        <p>{{ ucfirst($item->wakil) }}</p>
+                        <label>Nomor Induk Mahasiswa</label>
+                        <p>{{ ucfirst($item->nimwakil) }}</p>
+                        <label>Jurusan</label>
+                        <p>{{ ucfirst($item->jurusanwakil) }}</p>
+                        <label>Angkatan</label>
+                        <p>{{ ucfirst($item->angkatanwakil) }}</p>
+                    </div>
                 </div>
             </div>
         </div>
