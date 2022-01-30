@@ -27,7 +27,6 @@ class VoterController extends Controller
                 $key['status'],
             ];
         }
-        // 
         $time = Waktu::all();
         foreach ($time as $key) {
             $waktu[$key['nama']] = [
@@ -77,7 +76,6 @@ class VoterController extends Controller
     public function voting(Request $data)
     {
         if (Auth::user()->level == 2) {
-            // cek jika user sudah memilih atau belum
             $cekdata = User::where('id', Auth::user()->id)->get();
             if ($cekdata[0]['status'] == 1) {
                 $pemberitahuan = 'Kamu tidak dapat memilih 2 kali! Silahkan tunggu info terbaru hasil pemilihan di website ini!';
