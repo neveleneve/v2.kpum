@@ -39,7 +39,7 @@
                             </a>
                         </li>
                     @else
-                        @if (date('Y-m-d') >= date('Y-m-d', strtotime($waktu['Buka'][0])) && date('Y-m-d') <= date('Y-m-d', strtotime($waktu['Tutup'][0])))
+                        @if (date('Y-m-d') >= date('Y-m-d H:i:s', strtotime($waktu['Buka'][0])) && date('Y-m-d H:i:s') <= date('Y-m-d', strtotime($waktu['Tutup'][0])))
                             <li class="nav-item">
                                 <a href="{{ route('vote') }}"
                                     class="nav-link {{ Request::is('vote') ? 'font-weight-bold' : null }}">

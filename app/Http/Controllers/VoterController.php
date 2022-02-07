@@ -46,19 +46,19 @@ class VoterController extends Controller
 
     public function vote()
     {
-        if (date('Y-m-d') >= date('Y-m-d', strtotime($this->waktu['Buka'][0]))  && date('Y-m-d') <= date('Y-m-d', strtotime($this->waktu['Tutup'][0]))) {
+        if (date('Y-m-d H:i:s') >= date('Y-m-d H:i:s', strtotime($this->waktu['Buka'][0])) && date('Y-m-d H:i:s') <= date('Y-m-d H:i:s', strtotime($this->waktu['Tutup'][0]))) {
             $datacalon = VisiMisi::get();
             return view('vote', [
                 'datacalon' => $datacalon
             ]);
         }
 
-        if (date('Y-m-d') <= date('Y-m-d', strtotime($this->waktu['Buka'][0]))) {
+        if (date('Y-m-d H:i:s') <= date('Y-m-d H:i:s', strtotime($this->waktu['Buka'][0]))) {
             $notif = [
                 'pemberitahuan' => 'Pemilihan belum dibuka! Harap tunggu hingga pemilihan dibuka.',
                 'warna' => 'danger',
             ];
-        } elseif (date('Y-m-d') >= date('Y-m-d', strtotime($this->waktu['Tutup'][0]))) {
+        } elseif (date('Y-m-d H:i:s') >= date('Y-m-d H:i:s', strtotime($this->waktu['Tutup'][0]))) {
             if ($this->setting['hasilsuara'][0] == 0) {
                 $tambahan = ' Harap menunggu hasil perhitungan suara.';
             } else {
